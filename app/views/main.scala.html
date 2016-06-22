@@ -1,0 +1,59 @@
+@*
+ * This template is called from the `index` template. This template
+ * handles the rendering of the page header and body tags. It takes
+ * two arguments, a `String` for the title of the page and an `Html`
+ * object to insert into the body of the page.
+ *@
+@(title: String)(content: Html)
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        @* Here's where we render the page title `String`. *@
+        <title>@title</title>
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
+        <script src="@routes.Assets.versioned("javascripts/hello.js")" type="text/javascript"></script>
+    	<link rel="stylesheet" href="https://s3.amazonaws.com/codecademy-content/projects/bootstrap.min.css">
+    	<link rel="stylesheet" type="text/css" href="css/test.css">
+    	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="JS/main.js" type="text/javascript"></script>
+    </head>
+    <body>
+    <div class="wrapper">
+        <div class="spacer container">
+        </div>
+        <div class="header">
+            <div class="container">
+                <div class="row">
+                    <div class="center-block">
+                        <img src="http://i1030.photobucket.com/albums/y368/JamesMJordan/logo_header1_zpstudev3h2.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="spacer">
+        </div>
+        @* And here's where we render the `Html` object containing
+        * the page content. *@
+        @content
+        <div class="spacer">
+        </div>
+        <div class="footer">
+            <div class="container">
+                <div class="row">
+                    <div class"col-md-4 pull-left">
+                    <address>
+                        <p>2030 Rockefeller Dr.</p>
+                        <p>Ceres, CA 95307</p>
+                        <p>"sales,signsyourway.us"</p>
+                    </address>
+                </div>
+                <div class"col-md-4">
+            </div>
+            <div class="col-md-4">
+            </div>
+        </div>
+    </div>
+    </body>
+</html>
