@@ -83,12 +83,18 @@ input {
 	background-color: #000;
 	position: relative;
 	clear: both;
+	position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+
 }
 
 .footer address {
 	text-align: left;
 	color: #fff;
 	bottom: 0;
+	padding: 10px 0px;
 }
 
 /* Main body divs */

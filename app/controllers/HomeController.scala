@@ -21,8 +21,19 @@ class HomeController @Inject() extends Controller {
     Ok(views.html.index("Butts."))
   }
 
+  def businesscards = Action {
+    Ok(views.html.businesscards("Butts, the Revenge"))
+  }
+
+  def banners = Action {
+    Ok(views.html.banners("BANNERS"))
+  }
+
   def testpage = Action {
     Ok(views.html.testpage("Boobs."))
   }
 
+  def checkout = Action {
+    Ok(views.html.checkout("BOOBS"))
+  }
 }

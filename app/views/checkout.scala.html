@@ -1,0 +1,14 @@
+@(message: String)
+
+@main("Signs Your Way") {
+@(shippingForm: Form[ShippingData])
+
+@import helpers_
+
+@helper.form(action = route.Application.userPost) {
+    @inputText(shippingForm("name"))
+    @inputText(shippingForm("address1"))
+    @inputText(shippingForm("address2"))
+    <input type="submit" value ="Submit">
+}
+}
