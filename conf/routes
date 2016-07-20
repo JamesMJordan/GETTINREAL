@@ -7,13 +7,13 @@ GET     /                           controllers.HomeController.index
 GET     /businesscards              controllers.HomeController.businesscards
 GET     /testpage                   controllers.HomeController.testpage
 GET     /banners                    controllers.HomeController.banners
-GET     /checkout                   controllers.HomeController.checkout
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 
-POST    /checkout                   controllers.FormController.shippingForm
+GET    /checkout                   controllers.FormController.checkout
+POST    /checkout          controllers.FormController.saveCheckout
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

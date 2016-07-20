@@ -1,14 +1,15 @@
-@(message: String)
+@(shippingForm: Form[ShippingData])
+@import helper._
 
 @main("Signs Your Way") {
-@(shippingForm: Form[ShippingData])
 
-@import helpers_
+@helper.form(action = routes.FormController.saveCheckout) {
+<input type="text" name="name" value="Name"/>
 
-@helper.form(action = route.Application.userPost) {
-    @inputText(shippingForm("name"))
-    @inputText(shippingForm("address1"))
-    @inputText(shippingForm("address2"))
-    <input type="submit" value ="Submit">
+<input type="text" name="address1" value="address1" />
+
+<input type="text" name="address2" value="address2"/>
+
+<input type="submit" value="Submit"/>
 }
 }
