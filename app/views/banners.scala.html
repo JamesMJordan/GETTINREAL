@@ -1,0 +1,56 @@
+@(message: String)
+
+@main("Signs Your Way") {
+<div class="wrapper">
+    <div class="container">
+        <div class="section-cnt">
+            <input type="hidden" id="width" class="required">
+            <input type="hidden" id="height" class="required">
+            <div class="row clearfix">
+                <label>Width</label>
+                <div class="col">
+                    <input class="small field count msr" type="text" value="0" name="widthft" id="widthft" onchange="s.products.banner.cg.clear(); if($('#grommets_option').val() == 'cg'){ $('#grommets_option').val('ng'); }">
+                    <div class="counter2" style="background-image: url(&quot;css/images/counter.jpg&quot;);"></div>
+                    <span>feet</span>
+                </div><!-- /.col -->
+                <div class="col">
+                    <input class="small field count msr" type="text" value="0" name="widthin" id="widthin" onchange="s.products.banner.cg.clear(); if($('#grommets_option').val() == 'cg'){ $('#grommets_option').val('ng'); }">
+                    <div class="counter2"></div>
+                    <span>inches</span>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+
+            <div class="row clearfix">
+                <label>Height</label>
+                <div class="col">
+                    <input class="small field count msr" type="text" value="0" name="heightft" id="heightft" onchange="s.products.banner.cg.clear(); if($('#grommets_option').val() == 'cg'){ $('#grommets_option').val('ng'); }">
+                    <div class="counter2" style="background-image: url(&quot;css/images/counter.jpg&quot;);"></div>
+                    <span>feet</span>
+                </div><!-- /.col -->
+                <div class="col">
+                    <input class="small field count msr" type="text" value="0" name="heightin" id="heightin" onchange="s.products.banner.cg.clear(); if($('#grommets_option').val() == 'cg'){ $('#grommets_option').val('ng'); }">
+                    <div class="counter2"></div>
+                    <span>inches</span>
+                </div><!-- /.col -->
+                <div class="cl"></div><!-- /.cl -->
+                <p><small>Price is calculated to the next foot.</small></p>
+            </div><!-- /.row -->
+
+            <div class="row clearfix">
+                <label>Qty</label>
+                <div class="col">
+                    <input class="small field count required notab" type="text" value="1" name="qty" id="qty">
+                    <div class="counter2" style="background-image: url(&quot;css/images/counter.jpg&quot;);"></div>
+
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+            <div class="warning red"></div>
+            <div>Price</div>
+            <div><a href=@routes.FormController.checkout class="btn">Checkout</a></div>
+        </div>
+        </div>
+    </div>
+</div>
+
+
+}

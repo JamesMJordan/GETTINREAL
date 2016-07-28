@@ -1,0 +1,21 @@
+@(shippingForm: Form[ShippingData])
+@import helper._
+
+@main("Signs Your Way") {
+
+@helper.form(action = routes.FormController.saveCheckout) {
+<input type="text" name="name" value="Name"/>
+
+<input type="text" name="address1" value="address1" />
+
+<input type="text" name="address2" value="address2"/>
+
+<input type="text" name="city" value="city" />
+
+<input type="text" name="state" value="state" />
+
+<input type="text" name="zipcode" value="zipcode" />
+
+<input type="submit" value="Submit"/>
+}
+}

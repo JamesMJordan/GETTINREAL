@@ -1,0 +1,44 @@
+@*
+ * This template takes a single argument, a String containing a
+ * message to display.
+ *@
+@(message: String)
+
+@*
+ * Call the `main` template with two arguments. The first
+ * argument is a `String` with the title of the page, the second
+ * argument is an `Html` object containing the body of the page.
+ *@
+@main("Signs Your Way") {
+
+<div class="wrapper">
+ <div class="shell">
+  <div class="row home">
+   <div class="col-lg-4">
+    <div class="box" id="coroplastbox">
+     <a href=@routes.HomeController.banners>BANNERS</a>
+    </div>
+   </div>
+   <div class="col-lg-4">
+    <div class="box" id="pvcbox">
+     <a href=@routes.HomeController.businesscards>Business Cards</a>
+    </div>
+   </div>
+   <div class="col-lg-4">
+    <div class="box" id="bannerbox">
+     <p>Banners</p>
+    </div>
+   </div>
+  </div>
+ </div>
+ <div class="shell banner hidden">
+ </div>
+ <div class="shell pvc hidden">
+ </div>
+ <div class="shell coroplast hidden">
+ </div>
+ <div class="footer">
+ </div>
+</div>
+
+}
