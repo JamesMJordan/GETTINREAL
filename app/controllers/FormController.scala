@@ -53,5 +53,8 @@ class FormController @Inject() extends Controller {
 
   }
 
+  def submit = Action {
+    Ok(views.html.submit("dongs"))
+  }
 
 }
