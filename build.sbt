@@ -6,14 +6,17 @@ lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
 scalaVersion := "2.11.7"
 
-libraryDependencies += "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
+libraryDependencies += "org.postgresql" % "postgresql" % "9.4-1206-jdbc4"
+
+libraryDependencies += evolutions
 
 libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
   "com.typesafe.play" %% "anorm" % "2.5.0",
-  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test
+  "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
+  "org.postgresql" % "postgresql" % "9.4-1206-jdbc4"
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"

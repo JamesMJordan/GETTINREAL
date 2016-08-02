@@ -6,6 +6,8 @@ import play.api.Play._
 import play.api.libs.ws._
 import play.api.Play.current
 
+import scala.language.postfixOps
+
 
 
 case class newOrder(name: String, address1: String, address2: String, city: String, state: String, zipcode: String)
