@@ -12,7 +12,7 @@ libraryDependencies ++= Seq(
   ws,
   "com.typesafe.play" %% "anorm" % "2.5.0",
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
-  "postgresql" % "postgresql" % "9.1-901-1.jdbc4",
+  "org.postgresql" % "postgresql" % "9.4-1206-jdbc42",
   evolutions
 )
 

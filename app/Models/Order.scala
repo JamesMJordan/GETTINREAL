@@ -2,6 +2,7 @@ package models
 import anorm._
 import anorm.SqlParser._
 import play.api.db._
+import play.api.db
 import play.api.Play._
 import play.api.libs.ws._
 import play.api.Play.current
@@ -27,13 +28,29 @@ object Order {
     }
   }
 
-  def create(name: Option[String], address1: Option[String], address2: Option[String], city: Option[String], state: Option[String], zipcode: Option[String]): Unit = {
-    DB.withConnection { implicit c =>
-      val id: Long = SQL("INSERT INTO placedOrder(name, address1, address2, city, state, zipcode) VALUES({name}, {address1}," +
-        "{address2}, {city}, {state}, {zipcode)").on('name -> name, 'address1 -> address1, 'address2 -> address2,
-        'city -> city, 'state -> state, 'zipcode -> zipcode)
-        .executeInsert(scalar[Long].single)
+  def create(
+    name: Option[String],
+    address1: Option[String],
+    address2: Option[String],
+    city: Option[String],
+    state: Option[String],
+    zipcode: Option[String]): Option[Long] = {
 
+    DB.withConnection { implicit c =>
+     SQL(
+        """"
+          INSERT INTO placedorder(name, address1, address2, city, state, zipcode)
+          VALUES({name}, {address1}, {address2}, {city}, {state}, {zipcode})
+        """
+      ).on(
+        'name -> name.get,
+        'address1 -> address1.get,
+        'address2 -> address2.get,
+        'city -> city.get,
+        'state -> state.get,
+        'zipcode -> zipcode.get
+      )
+        .executeInsert()
     }
   }
 
