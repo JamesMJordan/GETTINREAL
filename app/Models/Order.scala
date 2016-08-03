@@ -32,7 +32,7 @@ object Order {
       val id: Long = SQL("INSERT INTO placedOrder(name, address1, address2, city, state, zipcode) VALUES({name}, {address1}," +
         "{address2}, {city}, {state}, {zipcode)").on('name -> name, 'address1 -> address1, 'address2 -> address2,
         'city -> city, 'state -> state, 'zipcode -> zipcode)
-        .executeInsert(scalar[Long] single)
+        .executeInsert(scalar[Long].single)
 
     }
   }
