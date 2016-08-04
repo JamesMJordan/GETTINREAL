@@ -1,6 +1,8 @@
 @(message: String)
 
 @main("Signs Your Way") {
+<script src="JS/banners.js" type="text/javascript"></script>
+
 <div class="wrapper">
     <div class="container">
         <div class="section-cnt">
@@ -9,12 +11,12 @@
             <div class="row clearfix">
                 <label>Width</label>
                 <div class="col">
-                    <input class="small field count msr" type="text" value="0" name="widthft" id="widthft" onchange="price()">
+                    <input class="small field count msr" type="text" value="0" name="widthft" id="widthft" onchange="change()">
                     <div class="counter2" style="background-image: url(&quot;css/images/counter.jpg&quot;);"></div>
                     <span>feet</span>
                 </div><!-- /.col -->
                 <div class="col">
-                    <input class="small field count msr" type="text" value="0" name="widthin" id="widthin" onchange="price()">
+                    <input class="small field count msr" type="text" value="0" name="widthin" id="widthin" onchange="change()">
                     <div class="counter2"></div>
                     <span>inches</span>
                 </div><!-- /.col -->
@@ -45,7 +47,7 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
             <div class="warning red"></div>
-            <div class="price">Price</div>
+            <div><p class="price">Price</p></div>
             <div><a href=@routes.FormController.checkout class="btn">Checkout</a></div>
         </div>
         </div>
