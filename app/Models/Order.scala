@@ -38,7 +38,7 @@ object Order {
 
     DB.withConnection { implicit c =>
      SQL(
-        """"
+        """
           INSERT INTO placedorder(name, address1, address2, city, state, zipcode)
           VALUES({name}, {address1}, {address2}, {city}, {state}, {zipcode})
         """

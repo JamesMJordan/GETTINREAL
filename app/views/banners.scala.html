@@ -9,12 +9,12 @@
             <div class="row clearfix">
                 <label>Width</label>
                 <div class="col">
-                    <input class="small field count msr" type="text" value="0" name="widthft" id="widthft" onchange="s.products.banner.cg.clear(); if($('#grommets_option').val() == 'cg'){ $('#grommets_option').val('ng'); }">
+                    <input class="small field count msr" type="text" value="0" name="widthft" id="widthft" onchange="price()">
                     <div class="counter2" style="background-image: url(&quot;css/images/counter.jpg&quot;);"></div>
                     <span>feet</span>
                 </div><!-- /.col -->
                 <div class="col">
-                    <input class="small field count msr" type="text" value="0" name="widthin" id="widthin" onchange="s.products.banner.cg.clear(); if($('#grommets_option').val() == 'cg'){ $('#grommets_option').val('ng'); }">
+                    <input class="small field count msr" type="text" value="0" name="widthin" id="widthin" onchange="price()">
                     <div class="counter2"></div>
                     <span>inches</span>
                 </div><!-- /.col -->
@@ -23,12 +23,12 @@
             <div class="row clearfix">
                 <label>Height</label>
                 <div class="col">
-                    <input class="small field count msr" type="text" value="0" name="heightft" id="heightft" onchange="s.products.banner.cg.clear(); if($('#grommets_option').val() == 'cg'){ $('#grommets_option').val('ng'); }">
+                    <input class="small field count msr" type="text" value="0" name="heightft" id="heightft" onchange="">
                     <div class="counter2" style="background-image: url(&quot;css/images/counter.jpg&quot;);"></div>
                     <span>feet</span>
                 </div><!-- /.col -->
                 <div class="col">
-                    <input class="small field count msr" type="text" value="0" name="heightin" id="heightin" onchange="s.products.banner.cg.clear(); if($('#grommets_option').val() == 'cg'){ $('#grommets_option').val('ng'); }">
+                    <input class="small field count msr" type="text" value="0" name="heightin" id="heightin" onchange="">
                     <div class="counter2"></div>
                     <span>inches</span>
                 </div><!-- /.col -->
@@ -45,12 +45,11 @@
                 </div><!-- /.col -->
             </div><!-- /.row -->
             <div class="warning red"></div>
-            <div>Price</div>
+            <div class="price"></div>
             <div><a href=@routes.FormController.checkout class="btn">Checkout</a></div>
         </div>
         </div>
     </div>
-</div>
 
 
 }

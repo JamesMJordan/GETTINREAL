@@ -7,7 +7,7 @@ GET     /                           controllers.HomeController.index
 GET     /businesscards              controllers.HomeController.businesscards
 GET     /testpage                   controllers.HomeController.testpage
 GET     /banners                    controllers.HomeController.banners
-GET    /checkout                    controllers.FormController.checkout
+GET     /checkout                   controllers.FormController.checkout
 GET     /submit                     controllers.FormController.submit
 
 # An example controller showing how to use dependency injection
