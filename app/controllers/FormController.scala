@@ -4,7 +4,7 @@ import javax.inject.Inject
 import play.api.data._
 import play.api.data.Forms._
 import play.api.mvc.{Action, Controller}
-import models.Order._
+import Models.Order._
 
 /**
   * Created by James Jordan on 7/18/2016.
@@ -43,7 +43,7 @@ class FormController @Inject() extends Controller {
     },
     shippingInfo => {
       println(shippingInfo)
-      val id = models.Order.create(shippingInfo.name, shippingInfo.address1, shippingInfo.address2, shippingInfo.city, shippingInfo.state, shippingInfo.zipcode)
+      val id = Models.Order.create(shippingInfo.name, shippingInfo.address1, shippingInfo.address2, shippingInfo.city, shippingInfo.state, shippingInfo.zipcode)
       Ok(views.html.order(shippingInfo))
     }
   )}

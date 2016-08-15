@@ -24,7 +24,7 @@ $(document).ready(function(){
 
     const SQUARE_FT = toInches(widthFt, widthIn) * toInches(heightFt, heightIn);
 		var newPrice = calculatePrice(SQUARE_FT, QUANTITY);
-    console.log(SQUAR_FT)
+    console.log(SQUARE_FT)
     console.log(((SQUARE_FT * PRICE_SQFT) * QUANTITY) * TAX);
    	$(".price").text(newPrice.toFixed(2));
   });

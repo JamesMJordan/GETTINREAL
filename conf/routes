@@ -21,3 +21,14 @@ GET    /order                       controllers.FormController.order
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Routes for the login system
+
+GET     /                                     controllers.Sessions.login
+POST    /standard/login                       controllers.Sessions.authenticate
+GET     /standard/logout                      controllers.Sessions.logout
+
+GET     /standard/messages/main               controllers.Messages.main
+GET     /standard/messages/list               controllers.Messages.list
+GET     /standard/messages/detail/:id         controllers.Messages.detail(id: Int)
+GET     /standard/messages/write              controllers.Messages.write

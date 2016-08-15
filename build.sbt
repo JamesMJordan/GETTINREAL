@@ -10,10 +10,17 @@ libraryDependencies ++= Seq(
   jdbc,
   cache,
   ws,
+  evolutions,
   "com.typesafe.play" %% "anorm" % "2.5.0",
   "org.scalatestplus.play" %% "scalatestplus-play" % "1.5.1" % Test,
   "org.postgresql" % "postgresql" % "9.4-1206-jdbc42",
-  evolutions
+  "jp.t2v" %% "play2-auth"        % "0.14.2",
+  "jp.t2v" %% "play2-auth-social" % "0.14.2",
+  "jp.t2v" %% "play2-auth-test"   % "0.14.2" % "test",
+  "org.scalikejdbc" %% "scalikejdbc"       % "2.4.2",
+  "org.scalikejdbc" %% "scalikejdbc-syntax-support-macro" % "2.4.2",
+  "org.mindrot" % "jbcrypt"   %"0.3m",
+  play.sbt.Play.autoImport.cache
 )
 
 resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
