@@ -1,26 +1,33 @@
 package controllers
 
 import javax.inject.Inject
-import play.api.data._
+
 import play.api.data.Forms._
+import play.api.data._
 import play.api.mvc.{Action, Controller}
-import Models.Order._
+import views._
 
 /**
   * Created by James Jordan on 7/18/2016.
   */
 
-case class ShippingData(
-                         name: Option[String],
-                         address1: Option[String],
-                         address2: Option[String],
-                         city: Option[String],
-                         state: Option[String],
-                         zipcode: Option[String]
-                       )
 
 class FormController @Inject() extends Controller {
 
+  case class ShippingData(
+                           name: Option[String],
+                           address1: Option[String],
+                           address2: Option[String],
+                           city: Option[String],
+                           state: Option[String],
+                           zipcode: Option[String]
+                         )
+
+  case class Registration(
+                           email: Option[String],
+                           password: Option[String],
+                           name: Option[String]
+                         )
 
 
   val shippingForm  = Form(
@@ -35,32 +42,17 @@ class FormController @Inject() extends Controller {
     )(ShippingData.apply)(ShippingData.unapply)
   )
 
-  def saveCheckout = Action {implicit request =>
+  def saveCheckout = Action { implicit request =>
   shippingForm.bindFromRequest.fold(
     formWithErrors => {
       println(formWithErrors)
-      BadRequest(views.html.checkout(formWithErrors))
+      BadRequest(html.checkout(formWithErrors))
     },
     shippingInfo => {
       println(shippingInfo)
-      val id = Models.Order.create(shippingInfo.name, shippingInfo.address1, shippingInfo.address2, shippingInfo.city, shippingInfo.state, shippingInfo.zipcode)
-      Ok(views.html.order(shippingInfo))
+      val id = Models.Order.createOrder(shippingInfo.name, shippingInfo.address1, shippingInfo.address2, shippingInfo.city, shippingInfo.state, shippingInfo.zipcode)
+      Ok(html.order(shippingInfo))
     }
   )}
-
-
-
-  def checkout = Action {
-    Ok(views.html.checkout(shippingForm))
-  }
-
-  def order = Action {
-    Ok(views.html.order(ShippingData(Option.empty, Option.empty, Option.empty, Option.empty, Option.empty, Option.empty)))
-
-  }
-
-  def submit = Action {
-    Ok(views.html.submit("dongs"))
-  }
 
 }

@@ -3,32 +3,22 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
-GET     /businesscards              controllers.HomeController.businesscards
-GET     /testpage                   controllers.HomeController.testpage
-GET     /banners                    controllers.HomeController.banners
-GET     /checkout                   controllers.FormController.checkout
-GET     /submit                     controllers.FormController.submit
+GET     /                           controllers.auth.Messages.index
+GET     /businesscards              controllers.auth.Messages.businesscards
+GET     /testpage                   controllers.auth.Messages.testpage
+GET     /banners                    controllers.auth.Messages.banners
+GET     /checkout                   controllers.auth.Messages.checkout
+GET     /submit                     controllers.auth.Messages.submit
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 
-GET     /checkout                   controllers.FormController.checkout
+GET    /checkout                    controllers.FormController.checkout
 POST   /checkout                    controllers.FormController.saveCheckout
 GET    /order                       controllers.FormController.order
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
-# Routes for the login system
-
-GET     /                                     controllers.Sessions.login
-POST    /standard/login                       controllers.Sessions.authenticate
-GET     /standard/logout                      controllers.Sessions.logout
-
-GET     /standard/messages/main               controllers.Messages.main
-GET     /standard/messages/list               controllers.Messages.list
-GET     /standard/messages/detail/:id         controllers.Messages.detail(id: Int)
-GET     /standard/messages/write              controllers.Messages.write

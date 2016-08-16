@@ -2,29 +2,47 @@ package controllers.auth
 
 import Models.Role._
 import jp.t2v.lab.play2.auth.AuthElement
-import play.api.mvc.Controller
 import play.twirl.api.Html
-import views.html
+import views._
+import play.api.mvc.{Action, Controller}
 
-trait Messages extends Controller with AuthElement with AuthConfigImpl {
+trait Messages extends Controller with controllers.FormController with AuthElement with AuthConfigImpl {
 
   def main = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-     Ok(views.html.main("title"))
+     Ok(html.main("title"))
   }
 
-  def list = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    val title = "all messages"
-    Ok(html.message.list(title))
+  def checkout = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+    Ok(html.checkout(shippingForm))
   }
 
-  def detail(id: Int) = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    val title = "messages detail "
-    Ok(html.message.detail(title + id))
+  def index = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+    Ok(html.index("Butts."))
   }
 
-  def write = StackAction(AuthorityKey -> Administrator) { implicit request =>
-    val title = "write message"
-    Ok(html.message.write(title))
+  def businesscards = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+    Ok(html.businesscards("Butts, the Revenge"))
+  }
+
+  def banners = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+    Ok(html.banners("BANNERS"))
+  }
+
+  def testpage = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+    Ok(html.testpage("Boobs."))
+  }
+
+  def checkout = Action {
+    Ok(views.html.checkout(shippingForm))
+  }
+
+  def order = Action {
+    Ok(views.html.order(ShippingData(Option.empty, Option.empty, Option.empty, Option.empty, Option.empty, Option.empty)))
+
+  }
+
+  def submit = Action {
+    Ok(html.submit("dongs"))
   }
 
   protected implicit def template(implicit user: User): String => Html => Html = html.basic.fullTemplate(user)

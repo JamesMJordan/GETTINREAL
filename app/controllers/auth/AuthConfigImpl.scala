@@ -19,6 +19,7 @@ trait AuthConfigImpl extends AuthConfig {
   val sessionTimeoutInSeconds = 3600
 
   def resolveUser(id: Id)(implicit ctx: ExecutionContext) = Future.successful(Some(id))
+
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext) = Future.successful((user.role, authority) match {
     case (Administrator, _) => true
     case (NormalUser, NormalUser) => true
@@ -26,7 +27,9 @@ trait AuthConfigImpl extends AuthConfig {
   })
 
   def loginSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = throw new AssertionError("don't use application Login")
+
   def logoutSucceeded(request: RequestHeader)(implicit ctx: ExecutionContext) = throw new AssertionError("don't use application Logout")
+
   def authenticationFailed(request: RequestHeader)(implicit ctx: ExecutionContext) = Future.successful {
     Unauthorized.withHeaders("WWW-Authenticate" -> """Basic realm="SECRET AREA"""")
   }

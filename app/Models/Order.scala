@@ -29,7 +29,7 @@ object Order {
     }
   }
 
-  def create(
+  def createOrder(
     name: Option[String],
     address1: Option[String],
     address2: Option[String],
