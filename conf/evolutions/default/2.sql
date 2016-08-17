@@ -1,3 +1,7 @@
+# --- Placed Order Schema
+
+# --- !Ups
+
 CREATE TABLE account (
     id         integer NOT NULL PRIMARY KEY,
     email      varchar NOT NULL UNIQUE,
@@ -5,3 +9,9 @@ CREATE TABLE account (
     name       varchar NOT NULL,
     role       varchar NOT NULL
 );
+
+# --- !Downs
+
+DROP TABLE account;
+
+# --- Person schema

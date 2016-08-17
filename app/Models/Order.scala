@@ -3,9 +3,6 @@ package Models
 import anorm._
 import anorm.SqlParser._
 import play.api.db._
-import play.api.db
-import play.api.Play._
-import play.api.libs.ws._
 import play.api.Play.current
 
 import scala.language.postfixOps

@@ -2,10 +2,10 @@ package controllers
 
 import javax.inject.Inject
 
+import Models.Account
 import play.api.data.Forms._
-import play.api.data._
-import play.api.mvc.{Action, Controller}
-import views._
+import play.api.data.{Form, _}
+import play.api.mvc.Controller
 
 /**
   * Created by James Jordan on 7/18/2016.
@@ -24,13 +24,18 @@ class FormController @Inject() extends Controller {
                          )
 
   case class Registration(
-                           email: Option[String],
-                           password: Option[String],
-                           name: Option[String]
+                           email: String,
+                           password: String,
+                           confirmpassword: String,
+                           name: String
                          )
 
+  case class Login(
+                  email: Option[String],
+                  password: Option[String]
+                  )
 
-  val shippingForm  = Form(
+   val shippingForm  = Form(
 
     mapping(
       "name" -> optional(nonEmptyText),
@@ -42,17 +47,21 @@ class FormController @Inject() extends Controller {
     )(ShippingData.apply)(ShippingData.unapply)
   )
 
-  def saveCheckout = Action { implicit request =>
-  shippingForm.bindFromRequest.fold(
-    formWithErrors => {
-      println(formWithErrors)
-      BadRequest(html.checkout(formWithErrors))
-    },
-    shippingInfo => {
-      println(shippingInfo)
-      val id = Models.Order.createOrder(shippingInfo.name, shippingInfo.address1, shippingInfo.address2, shippingInfo.city, shippingInfo.state, shippingInfo.zipcode)
-      Ok(html.order(shippingInfo))
-    }
-  )}
+  val loginForm = Form {
 
+    mapping(
+      "email" -> email,
+      "password" -> text
+    )(Account.authenticate)(_.map(u => (u.email, ""))).verifying("Invalid email or password", result => result.isDefined)
+  }
+
+  val registrationForm = Form {
+
+    mapping(
+      "email" -> nonEmptyText,
+      "password" -> nonEmptyText,
+      "confirmpassword" -> nonEmptyText,
+      "name" -> nonEmptyText
+    )(Registration.apply)(Registration.unapply)
+  }
 }
