@@ -1,5 +1,6 @@
 package controllers.auth
 
+import Models.Role
 import Models.Role._
 import jp.t2v.lab.play2.auth.AuthElement
 import jp.t2v.lab.play2.auth.LoginLogout
@@ -25,8 +26,8 @@ trait Messages extends Controller with LoginLogout with controllers.FormControll
         BadRequest(html.registration(formWithErrors))
       },
       registrationInfo => {
-        println(account)
-        val id = Models.Account.create(registrationInfo)
+        println(registrationInfo)
+        val id = Models.Account.addNewAccount(registrationInfo.email, registrationInfo.password, registrationInfo.name, Role.NormalUser)
         Ok(hmtl.login(loginForm))
       }
     )

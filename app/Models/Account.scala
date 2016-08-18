@@ -5,7 +5,7 @@ import scalikejdbc._
 
 case class Account(id: Int, email: String, password: String, name: String, role: Role)
 
-object Account extends SQLSyntaxSupport[Account] {
+object Account extends SQLSyntaxSupport[Account]{
 
   private val a = syntax("a")
 
@@ -28,6 +28,13 @@ object Account extends SQLSyntaxSupport[Account] {
   def findAll()(implicit s: DBSession = auto): Seq[Account] = withSQL {
     select.from(Account as a)
   }.map(Account(a)).list.apply()
+
+  def addNewAccount(email: String, password: String, name: String, role: Role)(implicit s: DBSession = auto) {
+    val id = withSQL {
+      val pass = BCrypt.hashpw(password, BCrypt.gensalt())
+      QueryDSL.insert.into(Account).values(email, password, name, role.toString())
+    }.updateAndReturnGeneratedKey.apply()
+  }
 
   def create(account: Account)(implicit s: DBSession = auto) {
     withSQL {

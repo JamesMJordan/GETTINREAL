@@ -2,40 +2,39 @@ package controllers
 
 import javax.inject.Inject
 
-import Models.Account
+import Models.Role.NormalUser
+import Models.{Account, Role}
+import play.api.data.Form
 import play.api.data.Forms._
-import play.api.data.{Form, _}
 import play.api.mvc.Controller
 
 /**
   * Created by James Jordan on 7/18/2016.
   */
 
+case class ShippingData(
+                         name: Option[String],
+                         address1: Option[String],
+                         address2: Option[String],
+                         city: Option[String],
+                         state: Option[String],
+                         zipcode: Option[String]
+                       )
+
+case class Registration(
+                         email: String,
+                         password: String,
+                         name: String
+                       )
+
+case class Login(
+                  email: Option[String],
+                  password: Option[String]
+                )
 
 class FormController @Inject() extends Controller {
 
-  case class ShippingData(
-                           name: Option[String],
-                           address1: Option[String],
-                           address2: Option[String],
-                           city: Option[String],
-                           state: Option[String],
-                           zipcode: Option[String]
-                         )
-
-  case class Registration(
-                           email: String,
-                           password: String,
-                           confirmpassword: String,
-                           name: String
-                         )
-
-  case class Login(
-                  email: Option[String],
-                  password: Option[String]
-                  )
-
-   val shippingForm  = Form(
+  val shippingForm  = Form(
 
     mapping(
       "name" -> optional(nonEmptyText),
@@ -60,7 +59,6 @@ class FormController @Inject() extends Controller {
     mapping(
       "email" -> nonEmptyText,
       "password" -> nonEmptyText,
-      "confirmpassword" -> nonEmptyText,
       "name" -> nonEmptyText
     )(Registration.apply)(Registration.unapply)
   }
