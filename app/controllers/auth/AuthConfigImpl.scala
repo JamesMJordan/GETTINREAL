@@ -30,7 +30,7 @@ trait AuthConfigImpl extends AuthConfig {
     Future.successful(Redirect("/login"))
 
   override def authorizationFailed(request: RequestHeader, user: User, authority: Option[Authority])(implicit context: ExecutionContext): Future[Result] = {
-    Future.successful(Forbidden(routes.auth.Messages.login(formWithErrors)))
+    Future.successful(Forbidden("/login"))
   }
 
   def authorize(user: User, authority: Authority)(implicit ctx: ExecutionContext) = Future.successful((user.role, authority) match {
@@ -43,12 +43,4 @@ trait AuthConfigImpl extends AuthConfig {
 
   override lazy val tokenAccessor = new BasicAuthTokenAccessor
 
-  override lazy val tokenAccessor = new CookieTokenAccessor(
-    /*
-     * Whether use the secure option or not use it in the cookie.
-     * Following code is default.
-     */
-    cookieSecureOption = play.api.Play.isProd(play.api.Play.current),
-    cookieMaxAge       = Some(sessionTimeoutInSeconds)
-  )
 }

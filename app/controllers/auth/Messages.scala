@@ -1,57 +1,66 @@
 package controllers.auth
 
-import Models.Role
+import Models.{Account, Role}
 import Models.Role._
+import controllers.ShippingData
 import jp.t2v.lab.play2.auth.AuthElement
 import jp.t2v.lab.play2.auth.LoginLogout
 import play.api.mvc.{Action, Controller}
-import play.twirl.api.Html
-import views._
 
-trait Messages extends Controller with LoginLogout with controllers.FormController with AuthElement with AuthConfigImpl {
+import scala.concurrent.Future
+
+
+trait Messages extends Controller with controllers.FormController with LoginLogout with AuthElement with AuthConfigImpl {
 
 
   def login = Action { implicit request =>
-    Ok(html.login(loginForm))
+    Ok(views.html.login(loginForm))
+  }
+
+  def authenticate = Action.async { implicit request =>
+    loginForm.bindFromRequest.fold(
+      formWithErrors => Future.successful(BadRequest(views.html.login(loginForm))),
+      user           => gotoLoginSucceeded(Account.get.id)
+    )
   }
 
   def registration = Action { implicit request =>
-    Ok(html.registration(registrationForm))
+    Ok(views.html.registration(registrationForm))
   }
 
   def newAccount = Action { implicit request =>
     registrationForm.bindFromRequest.fold(
       formWithErrors => {
         println(formWithErrors)
-        BadRequest(html.registration(formWithErrors))
+        BadRequest(views.html.registration(formWithErrors))
       },
       registrationInfo => {
         println(registrationInfo)
         val id = Models.Account.addNewAccount(registrationInfo.email, registrationInfo.password, registrationInfo.name, Role.NormalUser)
-        Ok(hmtl.login(loginForm))
+        Ok("/login")
       }
     )
 
   }
 
   def banners = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok(html.banners("BANNERS"))
+    Ok("/banners")
   }
 
   def businesscards = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok(html.businesscards("Butts, the Revenge"))
+    Ok("/businesscards")
   }
 
   def checkout = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok(html.checkout(shippingForm))
+    Ok(views.html.checkout(shippingForm))
   }
 
   def index = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok(html.index("Butts."))
+    Ok("/index")
   }
 
   def main = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok(html.main("title"))
+    Ok("/main")
   }
 
   def order = StackAction(AuthorityKey -> NormalUser) { implicit request =>
@@ -62,30 +71,24 @@ trait Messages extends Controller with LoginLogout with controllers.FormControll
     shippingForm.bindFromRequest.fold(
       formWithErrors => {
         println(formWithErrors)
-        BadRequest(html.checkout(formWithErrors))
+        BadRequest(views.html.order(ShippingData(Option.empty, Option.empty, Option.empty, Option.empty, Option.empty, Option.empty)))
       },
       shippingInfo => {
         println(shippingInfo)
         val id = Models.Order.createOrder(
           shippingInfo.name, shippingInfo.address1, shippingInfo.address2, shippingInfo.city, shippingInfo.state, shippingInfo.zipcode)
-        Ok(html.order(shippingInfo))
+        Ok(views.html.order(shippingInfo))
       }
-    )}
+    )
+  }
 
   def submit = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok(html.submit("dongs"))
+    Ok("/submit")
   }
 
-  def testpage = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok(html.testpage("Boobs."))
-  }
 
-  def logout = Action.async { implicit request =>
-    // do something...
-    gotoLogoutSucceeded
-  }
 
-  protected implicit def template(implicit user: User): String => Html => Html = html.basic.fullTemplate(user)
+
 
 }
 object Messages extends Messages

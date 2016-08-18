@@ -1,0 +1,20 @@
+@(registrationForm: Form[Registration])
+
+@import helpers._
+
+@main("Signs Your Way") {
+
+@helper.form(action = routes.auth.Messages.newAccount) {
+
+<input type="text" name="email" value="e-mail"/>
+
+<input type="text" name="password" value="Password"/>
+
+<input type="text" name="confirmpassword" value="Confirm Password"/>
+
+<input type="text" name="name" value="Full Name" />
+
+<input type="submit" value="Submit"/>
+
+    }
+}

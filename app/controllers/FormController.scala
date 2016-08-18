@@ -2,8 +2,7 @@ package controllers
 
 import javax.inject.Inject
 
-import Models.Role.NormalUser
-import Models.{Account, Role}
+import Models.Account
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
@@ -27,12 +26,8 @@ case class Registration(
                          name: String
                        )
 
-case class Login(
-                  email: Option[String],
-                  password: Option[String]
-                )
 
-class FormController @Inject() extends Controller {
+trait FormController extends Controller {
 
   val shippingForm  = Form(
 
@@ -47,7 +42,6 @@ class FormController @Inject() extends Controller {
   )
 
   val loginForm = Form {
-
     mapping(
       "email" -> email,
       "password" -> text
@@ -62,4 +56,6 @@ class FormController @Inject() extends Controller {
       "name" -> nonEmptyText
     )(Registration.apply)(Registration.unapply)
   }
+
+
 }

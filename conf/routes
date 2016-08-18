@@ -3,18 +3,25 @@
 # ~~~~
 
 # An example controller showing a sample home page
+
+
 GET     /                           controllers.auth.Messages.index
+
 GET     /banners                    controllers.auth.Messages.banners
 GET     /businesscards              controllers.auth.Messages.businesscards
+
 GET     /checkout                   controllers.auth.Messages.checkout
 POST    /checkout                   controllers.auth.Messages.saveCheckout
 
 GET     /login                      controllers.auth.Messages.login
-POST    /login                      controllers.auth.Messages.registration
+POST    /login                      controllers.auth.Messages.authenticate
 
-GET     /order                      controllers.FormController.order
+GET     /order                      controllers.auth.Messages.order
+
+GET     /registration               controllers.auth.Messages.registration
+POST    /registration               controllers.auth.Messages.newAccount
+
 GET     /submit                     controllers.auth.Messages.submit
-GET     /testpage                   controllers.auth.Messages.testpage
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
