@@ -5,23 +5,23 @@
 # An example controller showing a sample home page
 
 
-GET     /                           controllers.auth.Messages.index
+GET     /                           controllers.Messages.index
 
-GET     /banners                    controllers.auth.Messages.banners
-GET     /businesscards              controllers.auth.Messages.businesscards
+GET     /banners                    controllers.Messages.banners
+GET     /businesscards              controllers.Messages.businesscards
 
-GET     /checkout                   controllers.auth.Messages.checkout
-POST    /checkout                   controllers.auth.Messages.saveCheckout
+GET     /checkout                   controllers.Messages.checkout
+POST    /checkout                   controllers.Messages.saveCheckout
 
-GET     /login                      controllers.auth.Messages.login
-POST    /login                      controllers.auth.Messages.authenticate
+GET     /login                      controllers.Messages.login
+POST    /login                      controllers.Messages.authenticate
 
-GET     /order                      controllers.auth.Messages.order
+GET     /order                      controllers.Messages.order
 
-GET     /registration               controllers.auth.Messages.registration
-POST    /registration               controllers.auth.Messages.newAccount
+GET     /registration               controllers.Messages.registration
+POST    /registration               controllers.Messages.newAccount
 
-GET     /submit                     controllers.auth.Messages.submit
+GET     /submit                     controllers.Messages.submit
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
@@ -32,5 +32,4 @@ GET     /message                    controllers.AsyncController.message
 
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
-
+GET     /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)

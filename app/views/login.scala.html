@@ -1,14 +1,14 @@
-@(form: Form[Account])
+@(form: Form[Option[Models.Account]])
 
 @import helper._
 
 @main("Signs Your Way") {
 
-  @helper.form(controllers.auth.routes.Messages.authenticate) {
+  @helper.form(action = routes.Messages.authenticate){
 
     <h1>Sign in</h1>
 <p>
-  <input type="email" name="email" placeholder="Email" id="email" value="@form("email").value">
+  <input type="email" name="email" placeholder="Email" id="email" value=("email")>
 </p>
 <p>
   <input type="password" name="password" id="password" placeholder="Password">
@@ -17,5 +17,6 @@
   <button type="submit" id="loginbutton">Login</button>
 </p>
 
+    <p>Not registered?</p><a href="/registration">Click Here</a>
   }
 }

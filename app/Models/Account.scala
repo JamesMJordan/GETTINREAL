@@ -32,16 +32,8 @@ object Account extends SQLSyntaxSupport[Account]{
   def addNewAccount(email: String, password: String, name: String, role: Role)(implicit s: DBSession = auto) {
     val id = withSQL {
       val pass = BCrypt.hashpw(password, BCrypt.gensalt())
-      QueryDSL.insert.into(Account).values(email, password, name, role.toString())
+      QueryDSL.insert.into(Account).values(email, password, name, role)
     }.updateAndReturnGeneratedKey.apply()
-  }
-
-  def create(account: Account)(implicit s: DBSession = auto) {
-    withSQL {
-      import account._
-      val pass = BCrypt.hashpw(account.password, BCrypt.gensalt())
-      insert.into(Account).values(id, email, pass, name, role.toString)
-    }.update.apply()
   }
 
 }

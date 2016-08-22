@@ -1,4 +1,4 @@
-# --- Placed Order Schema
+# --- New Account Schema
 
 # --- !Ups
 
@@ -14,7 +14,7 @@ CREATE TABLE account (
 
 DROP TABLE account;
 
-# --- Person schema
+# --- New Account schema
 
 
 

@@ -16,5 +16,5 @@ CREATE TABLE placedorder (
 
 DROP TABLE placedorder;
 
-# --- Person schema
+# --- Placed Order schema
 

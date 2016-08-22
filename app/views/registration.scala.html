@@ -1,10 +1,10 @@
 @(registrationForm: Form[Registration])
 
-@import helpers._
+@import helper._
 
 @main("Signs Your Way") {
 
-@helper.form(action = routes.auth.Messages.newAccount) {
+@helper.form(action = routes.Messages.newAccount) {
 
 <input type="text" name="email" value="e-mail"/>
 

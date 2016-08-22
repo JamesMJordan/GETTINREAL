@@ -1,16 +1,14 @@
-package controllers.auth
+package controllers
 
-import Models.{Account, Role}
+import Models.Role
 import Models.Role._
-import controllers.ShippingData
 import jp.t2v.lab.play2.auth.AuthElement
 import jp.t2v.lab.play2.auth.LoginLogout
 import play.api.mvc.{Action, Controller}
-
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
-trait Messages extends Controller with controllers.FormController with LoginLogout with AuthElement with AuthConfigImpl {
+class Messages extends Controller with FormController with LoginLogout with AuthElement with AuthConfigImpl {
 
 
   def login = Action { implicit request =>
@@ -19,8 +17,8 @@ trait Messages extends Controller with controllers.FormController with LoginLogo
 
   def authenticate = Action.async { implicit request =>
     loginForm.bindFromRequest.fold(
-      formWithErrors => Future.successful(BadRequest(views.html.login(loginForm))),
-      user           => gotoLoginSucceeded(Account.get.id)
+      formWithErrors => Future.successful(BadRequest(views.html.login(formWithErrors))),
+      user           => gotoLoginSucceeded(user.get.id)
     )
   }
 
@@ -37,7 +35,7 @@ trait Messages extends Controller with controllers.FormController with LoginLogo
       registrationInfo => {
         println(registrationInfo)
         val id = Models.Account.addNewAccount(registrationInfo.email, registrationInfo.password, registrationInfo.name, Role.NormalUser)
-        Ok("/login")
+        Ok(views.html.login(loginForm))
       }
     )
 
@@ -48,23 +46,11 @@ trait Messages extends Controller with controllers.FormController with LoginLogo
   }
 
   def businesscards = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok("/businesscards")
+    Ok("/businesscrds")
   }
 
   def checkout = StackAction(AuthorityKey -> NormalUser) { implicit request =>
     Ok(views.html.checkout(shippingForm))
-  }
-
-  def index = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok("/index")
-  }
-
-  def main = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok("/main")
-  }
-
-  def order = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok(views.html.order(ShippingData(Option.empty, Option.empty, Option.empty, Option.empty, Option.empty, Option.empty)))
   }
 
   def saveCheckout = StackAction(AuthorityKey -> NormalUser) { implicit request =>
@@ -82,13 +68,21 @@ trait Messages extends Controller with controllers.FormController with LoginLogo
     )
   }
 
+  def index = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+    Ok("/index")
+  }
+
+  def main = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+    Ok("/main")
+  }
+
+  def order = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+    Ok(views.html.order(ShippingData(Option.empty, Option.empty, Option.empty, Option.empty, Option.empty, Option.empty)))
+  }
+
   def submit = StackAction(AuthorityKey -> NormalUser) { implicit request =>
     Ok("/submit")
   }
 
-
-
-
-
 }
-object Messages extends Messages
+

@@ -1,7 +1,5 @@
 package controllers
 
-import javax.inject.Inject
-
 import Models.Account
 import play.api.data.Form
 import play.api.data.Forms._
@@ -26,6 +24,10 @@ case class Registration(
                          name: String
                        )
 
+case class Login(
+                email: Some[String],
+                password: Some[String]
+                )
 
 trait FormController extends Controller {
 
@@ -56,6 +58,5 @@ trait FormController extends Controller {
       "name" -> nonEmptyText
     )(Registration.apply)(Registration.unapply)
   }
-
-
 }
+
