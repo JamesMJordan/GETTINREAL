@@ -2,9 +2,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# An example controller showing a sample home page
+#JS route for calling methods in JQuery
+GET     /javascriptRoutes           controllers.Pricing.javascriptRoutes
 
-
+#Calls for webpage links
 GET     /                           controllers.Messages.index
 
 GET     /banners                    controllers.Messages.banners
@@ -23,13 +24,16 @@ POST    /registration               controllers.Messages.newAccount
 
 GET     /submit                     controllers.Messages.submit
 
+POST    /Pricing                    controllers.Pricing.addFeet
+POST    /Pricing                    controllers.Pricing.bannerPricing
+
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
-# An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 
 
 
 
+
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file             controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

@@ -29,11 +29,18 @@ object Account extends SQLSyntaxSupport[Account]{
     select.from(Account as a)
   }.map(Account(a)).list.apply()
 
-  def addNewAccount(email: String, password: String, name: String, role: Role)(implicit s: DBSession = auto) {
+  private val ac = Account.column
+
+  def addNewAccount(email: String, password: String, name: String, role: Role)(implicit s: DBSession = auto): Long = {
     val id = withSQL {
       val pass = BCrypt.hashpw(password, BCrypt.gensalt())
-      QueryDSL.insert.into(Account).values(email, password, name, role)
+      QueryDSL.insert.into(Account).namedValues(
+        ac.email -> email,
+        ac.password -> pass,
+        ac.name -> name,
+        ac.role -> role.toString()
+      )
     }.updateAndReturnGeneratedKey.apply()
+    id
   }
-
 }

@@ -2,7 +2,7 @@
 
 @main("Signs Your Way") {
 <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
-<script src="JS/businesscards.js" type="text/javascript"></script>
+<script src=@routes.Assets.versioned("javascripts/businesscards.js")></script>
 <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 
 <div class="wrapper">
@@ -10,13 +10,18 @@
         <form action="/upload-target" class="dropzone"></form>
         <input type="file" accept="image/*" onchange="loadFile(event)">
         <img id="output"/>
+        <form action="">
+            <input type="checkbox" id="doublesided">Would you like them double-sided?<br>
+        </form>
         <div class="form-group">
-            <label for="sel1">Quantity</label>
-            <select class="form-control" id="sel1">
-                <option value="1"">250</option>
-                <option value="2">500</option>
-                <option value="3">1000</option>
-                <option value="4">2500</option>
+
+            <label for="businesscardsqty">Quantity</label>
+            <select class="form-control quantity" id="businesscardsqty">
+                <option data-price="0.00" value="0">0</option>
+                <option data-price="10.00" value="10">250</option>
+                <option data-price="15.00" value="15">500</option>
+                <option data-price="20.00" value="20">1000</option>
+                <option data-price="30.00" value="30">2500</option>
             </select>
         </div>
         <div id="price">Price</div>

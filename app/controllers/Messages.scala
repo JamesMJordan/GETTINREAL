@@ -5,6 +5,8 @@ import Models.Role._
 import jp.t2v.lab.play2.auth.AuthElement
 import jp.t2v.lab.play2.auth.LoginLogout
 import play.api.mvc.{Action, Controller}
+import play.api.routing.JavaScriptReverseRouter
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
@@ -34,7 +36,7 @@ class Messages extends Controller with FormController with LoginLogout with Auth
       },
       registrationInfo => {
         println(registrationInfo)
-        val id = Models.Account.addNewAccount(registrationInfo.email, registrationInfo.password, registrationInfo.name, Role.NormalUser)
+        val id = Models.Account.addNewAccount( registrationInfo.email, registrationInfo.password, registrationInfo.name, Role.NormalUser)
         Ok(views.html.login(loginForm))
       }
     )
@@ -42,11 +44,11 @@ class Messages extends Controller with FormController with LoginLogout with Auth
   }
 
   def banners = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok("/banners")
+    Ok(views.html.banners("wet"))
   }
 
   def businesscards = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok("/businesscrds")
+    Ok(views.html.businesscards("bit"))
   }
 
   def checkout = StackAction(AuthorityKey -> NormalUser) { implicit request =>
@@ -69,11 +71,7 @@ class Messages extends Controller with FormController with LoginLogout with Auth
   }
 
   def index = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok("/index")
-  }
-
-  def main = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok("/main")
+    Ok(views.html.index("/index"))
   }
 
   def order = StackAction(AuthorityKey -> NormalUser) { implicit request =>
@@ -81,7 +79,7 @@ class Messages extends Controller with FormController with LoginLogout with Auth
   }
 
   def submit = StackAction(AuthorityKey -> NormalUser) { implicit request =>
-    Ok("/submit")
+    Ok(views.html.submit("/submit"))
   }
 
 }
