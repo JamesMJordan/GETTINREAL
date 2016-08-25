@@ -24,8 +24,10 @@ POST    /registration               controllers.Messages.newAccount
 
 GET     /submit                     controllers.Messages.submit
 
-POST    /Pricing                    controllers.Pricing.addFeet
-POST    /Pricing                    controllers.Pricing.bannerPricing
+POST    /Pricing                    controllers.Pricing.bannerPricing(widthIn: Int, widthFt: Int, heightIn: Int, heightFt: Int, Quantity: Int)
+
+#javascript routes
+GET     /javascriptRoutes     controllers.Pricing.javascriptRoutes
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count

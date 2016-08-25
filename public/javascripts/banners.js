@@ -1,6 +1,4 @@
 $(document).ready(function(){
-  var Feet = jsRoutes.controllers.Pricing.addFeet
-  var bannerPricing = jsRoutes.controllers.Pricing.bannerPricing
 
  	$("input").keyup(function(){
  		var input = $(this).val();
@@ -14,9 +12,13 @@ $(document).ready(function(){
     const widthFt = $("#widthft").val();
     const QUANTITY = $("#qty").val();
 
-    const SQUARE_FT = Feet(widthFt, widthIn) * Feet(heightFt, heightIn);
-	console.log(SQUARE_FT);
-	var newPrice = bannerPricing(SQUARE_FT, QUANTITY);
+	var newPrice = $.ajax(jsRoutes.controllers.Pricing.bannerPricing(widthIn, widthFt, heightIn, heightFt, QUANTITY))
+	                .done(function(data){
+	                console.log(data);
+	                })
+	                .fail(function(data){
+	                console.log(data);
+	                });
 
    	$(".price").text(newPrice.toFixed(0) + ".00");
   });
