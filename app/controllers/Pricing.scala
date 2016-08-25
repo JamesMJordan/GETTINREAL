@@ -17,14 +17,12 @@ class Pricing extends Controller  {
     ).as("text/javascript")
   }
 
-  def addFeet(Feet: String, Inches: String): Int = {
-
-    val inches = Inches.toInt
-    val feet = Feet.toInt
-    val totalFeet = Math.round((inches/12) + .42) + Math.round(feet)
-
+  def addFeet(Feet: Int, Inches: Int): Int = {
+    val inches = Math.round((Inches/12) + .42)
+    val feet = Math.round(Feet)
+    val totalFeet = inches + feet
     totalFeet.toInt
-}
+  }
 
   def bannerPricing(SquareFeet: Int, Quantity: Int): Unit =  {
 

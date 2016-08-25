@@ -12,10 +12,10 @@ $(document).ready(function(){
    	const widthIn = $("#widthin").val();
     const heightFt = $("#heightft").val();
     const widthFt = $("#widthft").val();
-    const QUANTITY = parseInt($("#qty").val());
+    const QUANTITY = $("#qty").val();
 
     const SQUARE_FT = Feet(widthFt, widthIn) * Feet(heightFt, heightIn);
-	console.log(SQUARE_FT)
+	console.log(SQUARE_FT);
 	var newPrice = bannerPricing(SQUARE_FT, QUANTITY);
 
    	$(".price").text(newPrice.toFixed(0) + ".00");
