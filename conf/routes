@@ -24,17 +24,14 @@ POST    /registration               controllers.Messages.newAccount
 
 GET     /submit                     controllers.Messages.submit
 
-POST    /Pricing                    controllers.Pricing.bannerPricing(widthIn: Int, widthFt: Int, heightIn: Int, heightFt: Int, Quantity: Int)
-
 #javascript routes
-GET     /javascriptRoutes     controllers.Pricing.javascriptRoutes
+GET     /javascriptRoutes           controllers.Pricing.javascriptRoutes
+POST    /Pricing                    controllers.Pricing.bannerPricing(widthInches: Int, widthFeet: Int, heightInches: Int, heightFeet: Int, Quantity: Int)
+
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
 GET     /message                    controllers.AsyncController.message
-
-
-
 
 
 # Map static resources from the /public folder to the /assets URL path

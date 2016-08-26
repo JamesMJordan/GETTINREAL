@@ -6,11 +6,11 @@ $(document).ready(function(){
     	$(this).val('0');
     }
 
-   	const heightIn = $("#heightin").val();
-   	const widthIn = $("#widthin").val();
-    const heightFt = $("#heightft").val();
-    const widthFt = $("#widthft").val();
-    const QUANTITY = $("#qty").val();
+   	const heightIn = parseInt($("#heightin").val());
+   	const widthIn = parseInt($("#widthin").val());
+    const heightFt = parseInt($("#heightft").val());
+    const widthFt = parseInt($("#widthft").val());
+    const QUANTITY = parseInt($("#qty").val());
 
 	var newPrice = $.ajax(jsRoutes.controllers.Pricing.bannerPricing(widthIn, widthFt, heightIn, heightFt, QUANTITY))
 	                .done(function(data){
@@ -20,6 +20,6 @@ $(document).ready(function(){
 	                console.log(data);
 	                });
 
-   	$(".price").text(newPrice.toFixed(0) + ".00");
+   	$(".price").text(newPrice);
   });
 });

@@ -1,6 +1,5 @@
 package controllers
 
-import play.api.mvc.{Action, Controller}
 import play.api.routing.JavaScriptReverseRouter
 import play.api.mvc.{Action, Controller}
 
@@ -17,24 +16,22 @@ class Pricing extends Controller  {
     ).as("text/javascript")
   }
 
-  def addFeet(widthFeet: Int, widthInches: Int, heightFeet: Int, heightInches: Int): Int = {
-    val widthIn = Math.round((widthInches/12) + .42)
+  def addFeet(widthInches: Int, widthFeet: Int, heightInches: Int, heightFeet: Int): Int = {
+    val widthIn = Math.round(widthInches/12 + .42)
     val widthFt = Math.round(widthFeet)
-    val heightIn = Math.round((heightInches/12)+.42)
+    val heightIn = Math.round(heightInches/12 +.42)
     val heightFt = Math.round(heightFeet)
-    val totalFeet = ((widthIn + widthFeet)+(heightIn + heightFt))
+    val totalFeet = (widthIn + widthFt) * (heightIn + heightFt)
     totalFeet.toInt
   }
 
-  def bannerPricing(
-                     widthInches: Int, widthFeet: Int, heightInches: Int, heightFeet: Int, Quantity: Int) =
-    Action {implicit request =>
-    val SquareFeet = addFeet(widthFeet, widthInches, heightFeet, heightInches)
-    val TAX = 1.08125
+  def bannerPricing(widthInches: Int, widthFeet: Int, heightInches: Int, heightFeet: Int, Quantity: Int) =
+    Action { implicit request =>
+    val SquareFeet = addFeet(widthInches, widthFeet, heightInches, heightFeet)
     val PRICE_SQFT = 2.75
-    val SQFT = (((SquareFeet * PRICE_SQFT) * Quantity) * TAX) + 15
-    SQFT
-    Ok("")
+    val SQFT = (SquareFeet * PRICE_SQFT) * Quantity
+    val result = SQFT.toString
+    Ok(result)
   }
 
 
