@@ -1,37 +1,47 @@
 $(document).ready(function() {
-    const TAX = 1.08125;
-    const DOUBLESIDED = 1.25;
 
-    function doublesidedprice(quantity) {
-        return (quantity * DOUBLESIDED * TAX);
-    }
+        var DoubleSide = false;
+        var Qty = 0;
 
-    function calculatedprice(quantity) {
-        return (quantity * TAX);
-    }
+        $("#doublesided").click(function() {
+                    if($('#doublesided').is(':checked')) {
+                        DoubleSide = true;
+                    } else {
+                        DoubleSide = false;
+                    }
 
-    function check)
+
+            $.ajax(jsRoutes.controllers.Pricing.businesscardPricing(Qty, DoubleSide))
+                                .done(function(data){
+                                console.log(data);
+                                Price = data.toString();
+                                $("#price").text(Price);
+                                })
+                                .fail(function(data){
+                                console.log(data);
+                                });
+
+         });
+
+
 
         $('.quantity').change(function() {
 
-          var QUANTITY = parseFloat($(this).find("option:selected").data("price"));
-          var newPrice = calculatedprice(QUANTITY);
+            Qty = $(this).val();
 
-          if ($('#doublesided').is('checked')) {
-                var newPrice = doublesidedprice(QUANTITY);
-                }
-                $('#price').text(doublesidedPrice.toFixed(0));
-                }
+            $.ajax(jsRoutes.controllers.Pricing.businesscardPricing(Qty, DoubleSide))
+                    .done(function(data){
+                    console.log(data);
+                    Price = data.toString();
+                    $("#price").text(Price);
+                    })
+                    .fail(function(data){
+                    console.log(data);
+                    });
+
         });
 
-        $('#doublesided').click(function() {
 
-             var QUANTITY = parseFloat($('.quantity').find("option:selected").data("price"));
-             var newPrice = calculatedprice(QUANTITY);
-             var doublesidedPrice = doublesidedprice(QUANTITY);
-
-             $('#price').text(doublesidedPrice.toFixed(0) + ".00");
-        });
 });
 
 
