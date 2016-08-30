@@ -1,7 +1,37 @@
 @(message: String)
 
 @main("Signs Your Way") {
-
-
-
+<script src=@routes.Assets.versioned("javascripts/coroplast.js")></script>
+<div>
+    <div>
+        <p>Pricing is $90 for a single sided sheet and $100 for double sided.</p>
+        <p>Choose your size</p>
+        <select name="Coroplast" multiple="multiple">
+            <option value="1">12x12 (32 Per Sheet)</option>
+            <option value="2">12x18 (16 Per Sheet)</option>
+            <option value="3">12x18 (20 Per Sheet)</option>
+            <option value="4">24x12 (16 Per Sheet)</option>
+            <option value="5">24x18 (10 Per Sheet)</option>
+            <option value="6">24x24 (8 Per Sheet)</option>
+            <option value="7">24x30 (6 Per Sheet)</option>
+            <option value="8">24x36 (4 Per Sheet)</option>
+            <option value="9">24x36 (5 Per Sheet)</option>
+            <option value="10">24x48 (4 Per Sheet)</option>
+            <option value="11">36x18 (5 Per Sheet)</option>
+            <option value="12">48x18 (5 Per Sheet)</option>
+        </select>
+        <img src=@routes.Assets.versioned("images/coroplast/4x8.pdf")>
+    </div>
+    <div id="SamplePic"></div>
+    <div>
+        <input type="checkbox" id="doublesided">Would you like them double-sided?<br>
+    </div>
+    <label>Quantity</label>
+    <input type="text" id="quantity">
+    <div>
+        <label>Pricing</label>
+        <p id="price">Pricing</p>
+    </div>
+    <input type="Submit" name="next" value="Add to Cart">
+</div>
 }

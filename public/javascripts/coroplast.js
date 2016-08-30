@@ -3,12 +3,6 @@ $(document).ready(function() {
         var DoubleSide = false;
         var Qty = 0;
 
-    	$("input").keyup(function(){
- 		var input = $(this).val();
-            if(input == ''){
-                $(this).val('0');
-            }
-
         $("#doublesided").click(function() {
                     if($('#doublesided').is(':checked')) {
                         DoubleSide = true;
@@ -16,7 +10,7 @@ $(document).ready(function() {
                         DoubleSide = false;
                     }
 
-            $.ajax(jsRoutes.controllers.Pricing.qtyPricing(Qty, DoubleSide))
+            $.ajax(jsRoutes.controllers.Pricing.coroplastPricing(Qty, DoubleSide))
                                 .done(function(data){
                                 console.log(data);
                                 Price = data.toString();
@@ -27,11 +21,14 @@ $(document).ready(function() {
                                 });
          });
 
-        $('.quantity').change(function() {
+        $("#quantity").keyup(function(){
+                    Qty = $(this).val();
+                        if(Qty == ''){
+                           $(this).val('0');
+                        }
 
-            Qty = $(this).val();
 
-            $.ajax(jsRoutes.controllers.Pricing.qtyPricing(Qty, DoubleSide))
+            $.ajax(jsRoutes.controllers.Pricing.coroplastPricing(Qty, DoubleSide))
                     .done(function(data){
                     console.log(data);
                     Price = data.toString();

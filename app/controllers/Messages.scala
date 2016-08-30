@@ -55,6 +55,10 @@ class Messages extends Controller with FormController with LoginLogout with Auth
     Ok(views.html.checkout(shippingForm))
   }
 
+  def coroplast = StackAction(AuthorityKey -> NormalUser) { implicit request =>
+    Ok(views.html.coroplast("we"))
+  }
+
   def saveCheckout = StackAction(AuthorityKey -> NormalUser) { implicit request =>
     shippingForm.bindFromRequest.fold(
       formWithErrors => {

@@ -14,10 +14,12 @@ class Pricing extends Controller {
     Ok(
       JavaScriptReverseRouter("jsRoutes")(
         routes.javascript.Pricing.bannerPricing,
-        routes.javascript.Pricing.businesscardPricing
+        routes.javascript.Pricing.businesscardPricing,
+        routes.javascript.Pricing.coroplastPricing
       )
     ).as("text/javascript")
   }
+
   val BCardQuantities = Map(("0",0), ("1",10), ("2",15), ("3",20), ("4",30))
 
   def addFeet(widthInches: Int, widthFeet: Int, heightInches: Int, heightFeet: Int): Int = {
@@ -31,10 +33,7 @@ class Pricing extends Controller {
     totalFeet.toInt
   }
 
-
   def roundupInches(a: Double): Int = math.ceil(a / 12).toInt
-
-
 
   def bannerPricing(widthInches: Int, widthFeet: Int, heightInches: Int, heightFeet: Int, Quantity: Int) =
     Action { implicit request =>
@@ -44,8 +43,6 @@ class Pricing extends Controller {
       val result = SQFT.toString
       Ok(result)
     }
-
-
 
   def businesscardPricing(Qty: String, DoubleSided: Boolean) = Action { implicit request =>
 
@@ -57,6 +54,17 @@ class Pricing extends Controller {
         Priced = DSpricing.toString
       }
 
+      Ok(Priced)
+  }
+
+  def coroplastPricing(Qty: Int, DoubleSided: Boolean) = Action { implicit request =>
+
+    var pricing = Qty * 90
+    val DSpricing = Qty * 100
+    var Priced = pricing.toString
+      if (DoubleSided) {
+        Priced = DSpricing.toString
+      }
 
       Ok(Priced)
   }
