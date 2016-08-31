@@ -2,20 +2,31 @@ package controllers
 
 import play.api.routing.JavaScriptReverseRouter
 import play.api.mvc.{Action, Controller}
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
 
 import scala.math.BigDecimal.RoundingMode
 
 /**
   * Created by James on 8/24/16.
   */
+case class Measurements(width1: Int, width2: Int, height1: Int, height2: Int)
 class Pricing extends Controller {
+
+  implicit val measurementReads: Reads[Measurements] = (
+    (JsPath  \ "widthIn").read[Int] and
+      (JsPath \ "widthFt").read[Int] and
+      (JsPath \ "heightIn").read[Int] and
+      (JsPath \ "heightFt").read[Int]
+  )(Measurements.apply _)
 
   def javascriptRoutes = Action { implicit request =>
     Ok(
       JavaScriptReverseRouter("jsRoutes")(
         routes.javascript.Pricing.bannerPricing,
         routes.javascript.Pricing.businesscardPricing,
-        routes.javascript.Pricing.coroplastPricing
+        routes.javascript.Pricing.coroplastPricing,
+        routes.javascript.Pricing.bannerPricing2
       )
     ).as("text/javascript")
   }
@@ -34,6 +45,13 @@ class Pricing extends Controller {
   }
 
   def roundupInches(a: Double): Int = math.ceil(a / 12).toInt
+
+  def bannerPricing2(measurements: String) = Action {implicit request =>
+    println(Json.parse(measurements))
+    val lol = Json.parse(measurements).validate[Measurements]
+    println(lol)
+    Ok("")
+  }
 
   def bannerPricing(widthInches: Int, widthFeet: Int, heightInches: Int, heightFeet: Int, Quantity: Int) =
     Action { implicit request =>
