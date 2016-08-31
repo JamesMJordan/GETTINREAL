@@ -12,8 +12,26 @@ CREATE TABLE placedorder (
     zipcode varchar(255)
 );
 
+CREATE TABLE account (
+    id         bigserial NOT NULL PRIMARY KEY,
+    email      varchar NOT NULL UNIQUE,
+    password   varchar NOT NULL,
+    name       varchar NOT NULL,
+    role       varchar NOT NULL
+);
+
+CREATE TABLE pricing (
+    id          serial NOT NULL PRIMARY KEY,
+    type        varchar NOT NULL,
+    qty         varchar NULL,
+    price       DECIMAL(5,2)
+);
+
+
 # --- !Downs
 
 DROP TABLE placedorder;
+DROP TABLE account;
+DROP TABLE pricing;
 
 
