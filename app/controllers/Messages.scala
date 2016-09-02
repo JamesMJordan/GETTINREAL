@@ -93,19 +93,11 @@ class Messages extends Controller with FormController with LoginLogout with Auth
   }
 
   def pricing(PricingRequest: String) = Action { implicit request =>
-    implicit val pricingReads: Reads[PricingRequest] = (
-      (JsPath \ "Key").read[Long] and
-        (JsPath \ "DoubleSided").read[Boolean] and
-        (JsPath \ "Quantity").read[Int] and
-        (JsPath \ "widthIn").read[Int] and
-        (JsPath \ "widthFt").read[Int] and
-        (JsPath \ "heightIn").read[Int] and
-        (JsPath \ "heightFt").read[Int]) (PricingRequest.apply)
 
     println(Json.parse(PricingRequest))
     val lol = Json.parse(PricingRequest).validate[PricingRequest]
     println(lol)
-    val priced = priced(lol)
+    priced
     Ok(priced)
   }
 
