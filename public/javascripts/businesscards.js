@@ -1,13 +1,8 @@
 $(document).ready(function() {
 
-        var DoubleSide = false;
-        var Qty = 0;
-
-    	$("input").keyup(function(){
- 		var input = $(this).val();
-            if(input == ''){
-                $(this).val('0');
-            }
+        const DoubleSide = false;
+        const Key = 0
+        var Businesscards ={key, DoubleSide}
 
         $("#doublesided").click(function() {
                     if($('#doublesided').is(':checked')) {
@@ -16,7 +11,7 @@ $(document).ready(function() {
                         DoubleSide = false;
                     }
 
-            $.ajax(jsRoutes.controllers.Pricing.qtyPricing(Qty, DoubleSide))
+            $.ajax(jsRoutes.controllers.Messages.pricing(Businesscards))
                                 .done(function(data){
                                 console.log(data);
                                 Price = data.toString();
@@ -29,9 +24,9 @@ $(document).ready(function() {
 
         $('.quantity').change(function() {
 
-            Qty = $(this).val();
+            Key = $(this).text();
 
-            $.ajax(jsRoutes.controllers.Pricing.qtyPricing(Qty, DoubleSide))
+            $.ajax(jsRoutes.controllers.Messages.pricing(Businesscards))
                     .done(function(data){
                     console.log(data);
                     Price = data.toString();

@@ -1,7 +1,5 @@
 package controllers
 
-import play.api.routing.JavaScriptReverseRouter
-import play.api.mvc.{Action, Controller}
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
@@ -10,26 +8,18 @@ import scala.math.BigDecimal.RoundingMode
 /**
   * Created by James on 8/24/16.
   */
-case class Measurements(width1: Int, width2: Int, height1: Int, height2: Int)
-class Pricing extends Controller {
+case class Measurements(width1: Int, width2: Int, height1: Int, height2: Int, Qty: Int)
+
+class Pricing {
 
   implicit val measurementReads: Reads[Measurements] = (
     (JsPath  \ "widthIn").read[Int] and
       (JsPath \ "widthFt").read[Int] and
       (JsPath \ "heightIn").read[Int] and
-      (JsPath \ "heightFt").read[Int]
-  )(Measurements.apply _)
+      (JsPath \ "heightFt").read[Int] and
+      (JsPath \ "QUANTITY").read[Int])(Measurements.apply _)
 
-  def javascriptRoutes = Action { implicit request =>
-    Ok(
-      JavaScriptReverseRouter("jsRoutes")(
-        routes.javascript.Pricing.bannerPricing,
-        routes.javascript.Pricing.businesscardPricing,
-        routes.javascript.Pricing.coroplastPricing,
-        routes.javascript.Pricing.bannerPricing2
-      )
-    ).as("text/javascript")
-  }
+
 
   val BCardQuantities = Map(("0",0), ("1",10), ("2",15), ("3",20), ("4",30))
 
@@ -46,46 +36,10 @@ class Pricing extends Controller {
 
   def roundupInches(a: Double): Int = math.ceil(a / 12).toInt
 
-  def bannerPricing2(measurements: String) = Action {implicit request =>
-    println(Json.parse(measurements))
-    val lol = Json.parse(measurements).validate[Measurements]
-    println(lol)
-    Ok("")
-  }
 
-  def bannerPricing(widthInches: Int, widthFeet: Int, heightInches: Int, heightFeet: Int, Quantity: Int) =
-    Action { implicit request =>
-      val SquareFeet = addFeet(widthInches, widthFeet, heightInches, heightFeet)
-      val PRICE_SQFT = 2.75
-      val SQFT = (SquareFeet * PRICE_SQFT) * Quantity
-      val result = SQFT.toString
-      Ok(result)
-    }
 
-  def businesscardPricing(Qty: String, DoubleSided: Boolean) = Action { implicit request =>
 
-      var pricing = BCardQuantities(Qty)
-      val DSpricing = pricing * 1.25
-      var Priced = pricing.toString
 
-      if (DoubleSided) {
-        Priced = DSpricing.toString
-      }
-
-      Ok(Priced)
-  }
-
-  def coroplastPricing(Qty: Int, DoubleSided: Boolean) = Action { implicit request =>
-
-    var pricing = Qty * 90
-    val DSpricing = Qty * 100
-    var Priced = pricing.toString
-      if (DoubleSided) {
-        Priced = DSpricing.toString
-      }
-
-      Ok(Priced)
-  }
 }
 
 

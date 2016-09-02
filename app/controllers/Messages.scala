@@ -1,16 +1,26 @@
 package controllers
 
-import Models.Role
+import Models.{PricingRequest, Role}
 import Models.Role._
 import jp.t2v.lab.play2.auth.AuthElement
 import jp.t2v.lab.play2.auth.LoginLogout
 import play.api.mvc.{Action, Controller}
 import play.api.routing.JavaScriptReverseRouter
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class Messages extends Controller with FormController with LoginLogout with AuthElement with AuthConfigImpl {
+
+  def javascriptRoutes = Action { implicit request =>
+    Ok(
+      JavaScriptReverseRouter("jsRoutes")(
+        routes.javascript.Messages.pricing
+      )
+    ).as("text/javascript")
+  }
 
 
   def login = Action { implicit request =>
@@ -80,6 +90,23 @@ class Messages extends Controller with FormController with LoginLogout with Auth
 
   def order = StackAction(AuthorityKey -> NormalUser) { implicit request =>
     Ok(views.html.order(ShippingData(Option.empty, Option.empty, Option.empty, Option.empty, Option.empty, Option.empty)))
+  }
+
+  def pricing(PricingRequest: String) = Action { implicit request =>
+    implicit val pricingReads: Reads[PricingRequest] = (
+      (JsPath \ "Key").read[Long] and
+        (JsPath \ "DoubleSided").read[Boolean] and
+        (JsPath \ "Quantity").read[Int] and
+        (JsPath \ "widthIn").read[Int] and
+        (JsPath \ "widthFt").read[Int] and
+        (JsPath \ "heightIn").read[Int] and
+        (JsPath \ "heightFt").read[Int]) (PricingRequest.apply)
+
+    println(Json.parse(PricingRequest))
+    val lol = Json.parse(PricingRequest).validate[PricingRequest]
+    println(lol)
+    val priced = priced(lol)
+    Ok(priced)
   }
 
   def submit = StackAction(AuthorityKey -> NormalUser) { implicit request =>

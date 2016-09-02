@@ -1,17 +1,20 @@
 $(document).ready(function(){
-    var Price = 0;
+
+    const key = 1;
 
  	$("input").keyup(function(){
      		var input = $(this).val();
         if(input == ''){
         	$(this).val('0');
         }
-       	const heightIn = parseInt($("#heightin").val());
+
+        const heightIn = parseInt($("#heightin").val());
        	const widthIn = parseInt($("#widthin").val());
         const heightFt = parseInt($("#heightft").val());
         const widthFt = parseInt($("#widthft").val());
         const QUANTITY = parseInt($("#qty").val());
-        var Measurements = {widthIn, widthFt, heightIn, heightFt};
+
+        var Measurements = {key, widthIn, widthFt, heightIn, heightFt, QUANTITY};
 
         console.log(JSON.stringify(Measurements))
 

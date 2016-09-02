@@ -27,11 +27,9 @@ POST    /registration               controllers.Messages.newAccount
 GET     /submit                     controllers.Messages.submit
 
 #javascript routes
-GET     /javascriptRoutes           controllers.Pricing.javascriptRoutes
-POST    /bannerPricing2             controllers.Pricing.bannerPricing2(measurements: String)
-POST    /bannerPricing              controllers.Pricing.bannerPricing(widthInches: Int, widthFeet: Int, heightInches: Int, heightFeet: Int, Quantity: Int)
-POST    /businesscardPricing        controllers.Pricing.businesscardPricing(Qty: String, DoubleSided: Boolean)
-POST    /coroplastPricing           controllers.Pricing.coroplastPricing(Qty:Int, DoubleSided: Boolean)
+GET     /javascriptRoutes           controllers.Messages.javascriptRoutes
+POST    /Pricing                    controllers.Messages.pricing(PricingRequest: String)
+
 
 # An example controller showing how to use dependency injection
 GET     /count                      controllers.CountController.count
