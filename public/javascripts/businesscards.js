@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
-        const DoubleSide = false;
-        const Key = 0
-        var Businesscards ={key, DoubleSide}
+        var DoubleSide = false;
+        var Key = 0;
+        var Businesscards = {Key, DoubleSide}
 
         $("#doublesided").click(function() {
                     if($('#doublesided').is(':checked')) {
@@ -24,7 +24,7 @@ $(document).ready(function() {
 
         $('.quantity').change(function() {
 
-            Key = $(this).text();
+            Key = $(this).val();
 
             $.ajax(jsRoutes.controllers.Messages.pricing(Businesscards))
                     .done(function(data){

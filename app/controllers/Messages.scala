@@ -7,12 +7,11 @@ import jp.t2v.lab.play2.auth.LoginLogout
 import play.api.mvc.{Action, Controller}
 import play.api.routing.JavaScriptReverseRouter
 import play.api.libs.json._
-import play.api.libs.functional.syntax._
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class Messages extends Controller with FormController with LoginLogout with AuthElement with AuthConfigImpl {
+class Messages extends Controller with FormController with LoginLogout with AuthElement with AuthConfigImpl with ReadsController {
 
   def javascriptRoutes = Action { implicit request =>
     Ok(
@@ -93,12 +92,9 @@ class Messages extends Controller with FormController with LoginLogout with Auth
   }
 
   def pricing(PricingRequest: String) = Action { implicit request =>
-
-    println(Json.parse(PricingRequest))
-    val lol = Json.parse(PricingRequest).validate[PricingRequest]
-    println(lol)
-    priced
-    Ok(priced)
+    val lol:PricingRequest = Json.parse(PricingRequest).validate[PricingRequest].get
+    println(lol.priced)
+    Ok(lol.priced)
   }
 
   def submit = StackAction(AuthorityKey -> NormalUser) { implicit request =>

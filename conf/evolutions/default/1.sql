@@ -2,7 +2,7 @@
 
 # --- !Ups
 
-CREATE TABLE "placedorder" (
+CREATE TABLE placedorder (
     id bigserial NOT NULL PRIMARY KEY,
     name varchar(255),
     address1 varchar(255),
@@ -12,7 +12,7 @@ CREATE TABLE "placedorder" (
     zipcode varchar(255)
 );
 
-CREATE TABLE "account" (
+CREATE TABLE account (
     id         bigserial NOT NULL PRIMARY KEY,
     email      varchar NOT NULL UNIQUE,
     password   varchar NOT NULL,
@@ -20,7 +20,7 @@ CREATE TABLE "account" (
     role       varchar NOT NULL
 );
 
-CREATE TABLE "pricing" (
+CREATE TABLE pricing (
     id          serial NOT NULL PRIMARY KEY,
     materials   varchar NOT NULL,
     qty         varchar NULL,

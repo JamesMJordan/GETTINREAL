@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
-    const key = 1;
+    const Key = 1;
+    var DoubleSided = false;
 
  	$("input").keyup(function(){
      		var input = $(this).val();
@@ -12,30 +13,19 @@ $(document).ready(function(){
        	const widthIn = parseInt($("#widthin").val());
         const heightFt = parseInt($("#heightft").val());
         const widthFt = parseInt($("#widthft").val());
-        const QUANTITY = parseInt($("#qty").val());
+        const Quantity = parseInt($("#qty").val());
 
-        var Measurements = {key, widthIn, widthFt, heightIn, heightFt, QUANTITY};
+        var Measurements = {Key, DoubleSided, Quantity, widthIn, widthFt, heightIn, heightFt};
 
         console.log(JSON.stringify(Measurements))
 
-       $.ajax(jsRoutes.controllers.Pricing.bannerPricing2(JSON.stringify(Measurements)))
+       $.ajax(jsRoutes.controllers.Messages.pricing(JSON.stringify(Measurements)))
                 .done(function(data){
                 console.log(data);
                 })
                 .fail(function(data){
                 console.log(data)
                 });
-
-//	$.ajax(jsRoutes.controllers.Pricing.bannerPricing(JSON.stringify(Measurements)))
-//	                .done(function(data){
-//	                console.log(data);
-//	                Price = data.toString();
-//	                $(".price").text(Price);
-//	               	})
-//	                .fail(function(data){
-//	                console.log(data);
-//	                });
+             });
 
   });
-
-});

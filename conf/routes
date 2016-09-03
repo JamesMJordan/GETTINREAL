@@ -3,7 +3,7 @@
 # ~~~~
 
 #JS route for calling methods in JQuery
-GET     /javascriptRoutes           controllers.Pricing.javascriptRoutes
+GET     /javascriptRoutes           controllers.Messages.javascriptRoutes
 
 #Calls for webpage links
 GET     /                           controllers.Messages.index
@@ -27,7 +27,6 @@ POST    /registration               controllers.Messages.newAccount
 GET     /submit                     controllers.Messages.submit
 
 #javascript routes
-GET     /javascriptRoutes           controllers.Messages.javascriptRoutes
 POST    /Pricing                    controllers.Messages.pricing(PricingRequest: String)
 
 
