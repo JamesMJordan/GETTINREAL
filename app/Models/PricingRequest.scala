@@ -1,14 +1,11 @@
 package Models
 
-import play.api.libs.json._
-import play.api.libs.functional.syntax._
-import anorm._
 import anorm._
 import anorm.SqlParser._
 import play.api.db._
 import play.api.Play.current
 
-import scala.concurrent.Future
+
 
 
 case class PricingRequest(
@@ -19,20 +16,26 @@ case class PricingRequest(
                          widthFt: Int,
                          heightIn: Int,
                          heightFt: Int){
-  val squareFeet = {
-    val total = (roundupInches(widthIn) + widthFt) * (roundupInches(heightIn) + heightFt)
-    if (total == 0 ) {
-      val total = 1
+
+  val squareFeet: Double = {
+    var totalFeet: Double = (roundupInches(widthIn) + widthFt) * (roundupInches(heightIn) + heightFt)
+    if (totalFeet == 0){
+      totalFeet = 1
     }
-    total.toInt
+
+    println(totalFeet)
+    totalFeet
   }
 
   val Price: Double = DB.withConnection { implicit c =>
     SQL("SELECT price FROM pricing WHERE id = {Key}").on('Key -> Key) as scalar[Double].single
   }
 
-  val priced: String = {
-    val Total = (squareFeet * Price) * Quantity
+  val priced = {
+    var Total: Double = (squareFeet * Price) * Quantity
+    if (DoubleSided) {
+      Total = Price * Quantity * 1.25
+    }
     Total.toString
   }
 

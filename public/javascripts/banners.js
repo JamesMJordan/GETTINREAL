@@ -15,13 +15,16 @@ $(document).ready(function(){
         const widthFt = parseInt($("#widthft").val());
         const Quantity = parseInt($("#qty").val());
 
-        var Measurements = {Key, DoubleSided, Quantity, widthIn, widthFt, heightIn, heightFt};
+        var Banner = {Key, DoubleSided, Quantity, widthIn, widthFt, heightIn, heightFt};
 
-        console.log(JSON.stringify(Measurements))
+        console.log(JSON.stringify(Banner))
 
-       $.ajax(jsRoutes.controllers.Messages.pricing(JSON.stringify(Measurements)))
+       $.ajax(jsRoutes.controllers.Messages.pricing(JSON.stringify(Banner)))
                 .done(function(data){
                 console.log(data);
+                var Price = data
+                $('.price').text(data);
+
                 })
                 .fail(function(data){
                 console.log(data)

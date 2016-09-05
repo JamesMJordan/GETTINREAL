@@ -1,17 +1,25 @@
 $(document).ready(function() {
 
-        var DoubleSide = false;
+        var DoubleSided = false;
         var Key = 0;
-        var Businesscards = {Key, DoubleSide}
+        const heightIn = 0
+        const widthIn = 0
+        const heightFt = 0
+        const widthFt = 0
+        const Quantity = 1
+
+
 
         $("#doublesided").click(function() {
                     if($('#doublesided').is(':checked')) {
-                        DoubleSide = true;
+                        DoubleSided = true;
                     } else {
-                        DoubleSide = false;
+                        DoubleSided = false;
                     }
+             var Businesscards = {Key, DoubleSided, Quantity, widthIn, widthFt, heightIn, heightFt}
+             console.log(JSON.stringify(Businesscards));
 
-            $.ajax(jsRoutes.controllers.Messages.pricing(Businesscards))
+            $.ajax(jsRoutes.controllers.Messages.pricing(JSON.stringify(Businesscards)))
                                 .done(function(data){
                                 console.log(data);
                                 Price = data.toString();
@@ -22,11 +30,16 @@ $(document).ready(function() {
                                 });
          });
 
-        $('.quantity').change(function() {
+        $('#businesscardsqty').change(function() {
 
-            Key = $(this).val();
+            var key = $(this).val();
 
-            $.ajax(jsRoutes.controllers.Messages.pricing(Businesscards))
+            Key = parseInt(key)
+
+            var Businesscards = {Key, DoubleSided, Quantity, widthIn, widthFt, heightIn, heightFt}
+            console.log(JSON.stringify(Businesscards));
+
+            $.ajax(jsRoutes.controllers.Messages.pricing(JSON.stringify(Businesscards)))
                     .done(function(data){
                     console.log(data);
                     Price = data.toString();

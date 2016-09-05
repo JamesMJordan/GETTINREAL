@@ -1,16 +1,24 @@
 $(document).ready(function() {
 
-        var DoubleSide = false;
-        var Qty = 0;
+        var DoubleSided = false;
+        const Key = 6;
+        const heightIn = 0
+        const widthIn = 0
+        const heightFt = 0
+        const widthFt = 0
+        var Quantity = 1
 
         $("#doublesided").click(function() {
                     if($('#doublesided').is(':checked')) {
-                        DoubleSide = true;
+                        DoubleSided = true;
                     } else {
-                        DoubleSide = false;
+                        DoubleSided = false;
                     }
 
-            $.ajax(jsRoutes.controllers.Pricing.coroplastPricing(Qty, DoubleSide))
+                    var Coroplast = {Key, DoubleSided, Quantity, widthIn, widthFt, heightIn, heightFt}
+                    console.log(Coroplast);
+
+            $.ajax(jsRoutes.controllers.Messages.pricing(JSON.stringify(Coroplast)))
                                 .done(function(data){
                                 console.log(data);
                                 Price = data.toString();
@@ -22,13 +30,15 @@ $(document).ready(function() {
          });
 
         $("#quantity").keyup(function(){
-                    Qty = $(this).val();
-                        if(Qty == ''){
+                    Quanitity = $(this).val();
+                        if(Quantity == ''){
                            $(this).val('0');
                         }
 
+            var Coroplast = {Key, DoubleSided, Quantity, widthIn, widthFt, heightIn, heightFt}
+            console.log(Coroplast);
 
-            $.ajax(jsRoutes.controllers.Pricing.coroplastPricing(Qty, DoubleSide))
+            $.ajax(jsRoutes.controllers.Messages.pricing(JSON.stringify(Coroplast)))
                     .done(function(data){
                     console.log(data);
                     Price = data.toString();
