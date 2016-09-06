@@ -15,7 +15,7 @@ body {
 	o-background-size: cover; /* for Opera 9.5 */
 	margin: 0; /* to remove the default white margin of body */
 	padding: 0; /* to remove the default white margin of body */
-	overflow: hidden;
+	overflow: scroll;
 }
 
 .container {
@@ -29,6 +29,7 @@ body {
 
 .wrapper {
 	height: 100%;
+
 }
 
 /* Header and Navigation bar only */

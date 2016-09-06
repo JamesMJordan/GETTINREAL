@@ -8,8 +8,6 @@ $(document).ready(function() {
         const widthFt = 0
         const Quantity = 1
 
-
-
         $("#doublesided").click(function() {
                     if($('#doublesided').is(':checked')) {
                         DoubleSided = true;
@@ -49,7 +47,6 @@ $(document).ready(function() {
                     console.log(data);
                     });
         });
-
 });
 
 

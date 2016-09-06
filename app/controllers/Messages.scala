@@ -1,9 +1,8 @@
 package controllers
 
-import Models.{PricingRequest, Role}
+import Models.{Item, Pricing, Role}
 import Models.Role._
-import jp.t2v.lab.play2.auth.AuthElement
-import jp.t2v.lab.play2.auth.LoginLogout
+import jp.t2v.lab.play2.auth._
 import play.api.mvc.{Action, Controller}
 import play.api.routing.JavaScriptReverseRouter
 import play.api.libs.json._
@@ -92,9 +91,10 @@ class Messages extends Controller with FormController with LoginLogout with Auth
   }
 
   def pricing(PricingRequest: String) = Action { implicit request =>
-    val lol:PricingRequest = Json.parse(PricingRequest).validate[PricingRequest].get
-    println(lol.priced)
-    Ok(lol.priced)
+    val lol: Item = Json.parse(PricingRequest).validate[Item].get
+    var priced = Pricing.priced(lol)
+    println(Pricing.priced(lol))
+    Ok(priced)
   }
 
   def submit = StackAction(AuthorityKey -> NormalUser) { implicit request =>

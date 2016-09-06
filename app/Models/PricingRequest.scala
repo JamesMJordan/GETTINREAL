@@ -8,59 +8,39 @@ import play.api.Play.current
 
 
 
-case class PricingRequest(
-                         Key: Long,
-                         DoubleSided: Boolean,
-                         Quantity: Int,
-                         widthIn: Int,
-                         widthFt: Int,
-                         heightIn: Int,
-                         heightFt: Int){
+case class Item(
+                Key: Long,
+                DoubleSided: Boolean,
+                Quantity: Int,
+                widthIn: Int,
+                widthFt: Int,
+                heightIn:Int,
+                heightFt: Int)
 
-  val squareFeet: Double = {
-    var totalFeet: Double = (roundupInches(widthIn) + widthFt) * (roundupInches(heightIn) + heightFt)
+object Pricing {
+    def squareFeet(i: Item): Int = {
+      var totalFeet = (roundupInches(i.widthIn) + i.widthFt) * (roundupInches(i.heightIn) + i.heightFt)
     if (totalFeet == 0){
       totalFeet = 1
     }
-
-    println(totalFeet)
-    totalFeet
+      totalFeet
   }
 
-  val Price: Double = DB.withConnection { implicit c =>
-    SQL("SELECT price FROM pricing WHERE id = {Key}").on('Key -> Key) as scalar[Double].single
+  def Price(i: Item): Double = DB.withConnection { implicit c =>
+    SQL("SELECT price FROM pricing WHERE id = {Key}").on('Key -> i.Key) as scalar[Double].single
   }
 
-  val priced = {
-    var Total: Double = (squareFeet * Price) * Quantity
-    if (DoubleSided) {
-      Total = Price * Quantity * 1.25
+  def priced(i: Item): String = {
+    var Total: Double = squareFeet(i) * Price(i) * i.Quantity
+    if (i.DoubleSided) {
+      Total = Price(i) * i.Quantity * 1.25
     }
     Total.toString
   }
 
-  def roundupInches(a: Double) = math.ceil(a / 12).toInt
-
+  def roundupInches(a: Double): Int = math.ceil(a / 12).toInt
 }
 
-
-
-
-case class DBItem(id: Long, materials: String, qty: Int, price: Double)
-
-object Item {
-
-
-  val parser = {
-    get[Long]("id")~
-    get[String]("materials")~
-    get[Int]("qty")~
-    get[Double]("price") map {
-      case id~materials~qty~price => DBItem(id, materials, qty, price)
-    }
-  }
-
-}
 
 
 

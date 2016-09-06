@@ -1,14 +1,11 @@
 @(message: String)
 
 @main("Signs Your Way") {
-<script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
 <script src=@routes.Assets.versioned("javascripts/businesscards.js")></script>
-<link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
 
 <div class="wrapper">
     <div class="container">
-        <form action="/upload-target" class="dropzone"></form>
-        <input type="file" accept="image/*" onchange="loadFile(event)">
+        <input type="file" accept="image/*" id="businesscardupload">
         <img id="output"/>
         <div>
             <input type="checkbox" id="doublesided">Would you like them double-sided?<br>
