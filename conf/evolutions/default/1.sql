@@ -24,8 +24,16 @@ CREATE TABLE pricing (
     id          serial NOT NULL PRIMARY KEY,
     materials   varchar NOT NULL,
     qty         varchar NULL,
-    price       DECIMAL(5,2)
+    price       DECIMAL(5, 2)
 );
+
+CREATE TABLE cartitem (
+    id          serial NOT NULL PRIMARY KEY,
+    image       bytea NOT NULL,
+    qty         varchar NOT NULL,
+    price       DECIMAL(5, 2),
+    descriptiong varchar(255) NOT NULL
+)
 
 
 # --- !Downs

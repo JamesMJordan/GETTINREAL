@@ -25,8 +25,8 @@ case class Registration(
                        )
 
 case class Login(
-                email: Some[String],
-                password: Some[String]
+                email: String,
+                password: String
                 )
 
 trait FormController extends Controller {

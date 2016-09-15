@@ -26,6 +26,8 @@ POST    /registration               controllers.Messages.newAccount
 
 GET     /submit                     controllers.Messages.submit
 
+POST    /businesscards              controllers.Messages.upload
+
 #javascript routes
 POST    /Pricing                    controllers.Messages.pricing(PricingRequest: String)
 

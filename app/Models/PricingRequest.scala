@@ -8,14 +8,7 @@ import play.api.Play.current
 
 
 
-case class Item(
-                Key: Long,
-                DoubleSided: Boolean,
-                Quantity: Int,
-                widthIn: Int,
-                widthFt: Int,
-                heightIn:Int,
-                heightFt: Int)
+case class Item(Key: Long, DoubleSided: Boolean, Quantity: Int, widthIn: Int, widthFt: Int, heightIn: Int, heightFt: Int)
 
 object Pricing {
     def squareFeet(i: Item): Int = {

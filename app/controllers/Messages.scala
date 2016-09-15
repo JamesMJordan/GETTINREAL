@@ -1,5 +1,7 @@
 package controllers
 
+import java.io.File
+
 import Models.{Item, Pricing, Role}
 import Models.Role._
 import jp.t2v.lab.play2.auth._
@@ -11,6 +13,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class Messages extends Controller with FormController with LoginLogout with AuthElement with AuthConfigImpl with ReadsController {
+
+
 
   def javascriptRoutes = Action { implicit request =>
     Ok(
@@ -44,7 +48,7 @@ class Messages extends Controller with FormController with LoginLogout with Auth
       },
       registrationInfo => {
         println(registrationInfo)
-        val id = Models.Account.addNewAccount( registrationInfo.email, registrationInfo.password, registrationInfo.name, Role.NormalUser)
+        val id = Models.Account.addNewAccount(registrationInfo.email, registrationInfo.password, registrationInfo.name, Role.NormalUser)
         Ok(views.html.login(loginForm))
       }
     )
@@ -101,5 +105,9 @@ class Messages extends Controller with FormController with LoginLogout with Auth
     Ok(views.html.submit("/submit"))
   }
 
+  def upload = Action(parse.temporaryFile) { request =>
+    request.body.moveTo(new File("/temp"))
+    Ok("File uploaded")
+  }
 }
 

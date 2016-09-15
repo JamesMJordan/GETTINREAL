@@ -1,12 +1,20 @@
 @(message: String)
 
+@import helper._
+
 @main("Signs Your Way") {
 <script src=@routes.Assets.versioned("javascripts/businesscards.js")></script>
 
 <div class="wrapper">
     <div class="container">
-        <input type="file" accept="image/*" id="businesscardupload">
-        <img id="output"/>
+        @helper.form(action = routes.Messages.upload, 'enctype -> "multipart/form-data") {
+
+        <input type="file" name="picture">
+        <p>
+            <input type="submit">
+        </p>
+        }
+
         <div>
             <input type="checkbox" id="doublesided">Would you like them double-sided?<br>
         </div>
