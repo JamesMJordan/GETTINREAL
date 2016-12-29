@@ -1,0 +1,51 @@
+@(product: Int)
+
+    @if(product == 1) {
+<div class="row clearfix">
+    <label>Width</label>
+    <div class="col">
+        <input class="small field count msr" type="text" value="0" name="widthft" id="widthft">
+        <div class="counter2" style="background-image: url(&quot;css/images/counter.jpg&quot;);"></div>
+        <span>feet</span>
+    </div>
+    <div class="col">
+        <input class="small field count msr" type="text" value="0" name="widthin" id="widthin">
+        <div class="counter2"></div>
+        <span>inches</span>
+    </div>
+</div>
+<div class="row clearfix">
+    <label>Height</label>
+    <div class="col">
+        <input class="small field count msr" type="text" value="0" name="heightft" id="heightft">
+        <div class="counter2" style="background-image: url(&quot;css/images/counter.jpg&quot;);"></div>
+        <span>feet</span>
+    </div>
+    <div class="col">
+        <input class="small field count msr" type="text" value="0" name="heightin" id="heightin">
+        <div class="counter2"></div>
+        <span>inches</span>
+    </div>
+    <div class="cl"></div>
+    <p><small>Price is calculated to the next foot.</small></p>
+</div>
+} else if(product == 2) {
+<div>
+    <select>
+        <option value="1">12x12 (32 Per Sheet)</option>
+        <option value="2">12x18 (16 Per Sheet)</option>
+        <option value="3">12x18 (20 Per Sheet)</option>
+        <option value="4">24x12 (16 Per Sheet)</option>
+        <option value="5">24x18 (10 Per Sheet)</option>
+        <option value="6">24x24 (8 Per Sheet)</option>
+        <option value="7">24x30 (6 Per Sheet)</option>
+        <option value="8">24x36 (4 Per Sheet)</option>
+        <option value="9">24x36 (5 Per Sheet)</option>
+        <option value="10">24x48 (4 Per Sheet)</option>
+        <option value="11">36x18 (5 Per Sheet)</option>
+        <option value="12">48x18 (5 Per Sheet)</option>
+    </select>
+</div>
+} else {
+<div></div>
+}
