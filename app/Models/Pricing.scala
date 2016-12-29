@@ -8,10 +8,10 @@ import play.api.Play.current
 
 
 
-case class Item(Key: Long, DoubleSided: Boolean, Quantity: Int, widthIn: Int, widthFt: Int, heightIn: Int, heightFt: Int)
+case class Pricing(Key: Long, DoubleSided: Boolean, Quantity: Int, widthIn: Int, widthFt: Int, heightIn: Int, heightFt: Int)
 
 object Pricing {
-    def squareFeet(i: Item): Int = {
+    def squareFeet(i: Pricing): Int = {
       var totalFeet = (roundupInches(i.widthIn) + i.widthFt) * (roundupInches(i.heightIn) + i.heightFt)
     if (totalFeet == 0){
       totalFeet = 1
@@ -19,11 +19,11 @@ object Pricing {
       totalFeet
   }
 
-  def Price(i: Item): Double = DB.withConnection { implicit c =>
+  def Price(i: Pricing): Double = DB.withConnection { implicit c =>
     SQL("SELECT price FROM pricing WHERE id = {Key}").on('Key -> i.Key) as scalar[Double].single
   }
 
-  def priced(i: Item): String = {
+  def priced(i: Pricing): String = {
     var Total: Double = squareFeet(i) * Price(i) * i.Quantity
     if (i.DoubleSided) {
       Total = Price(i) * i.Quantity * 1.25

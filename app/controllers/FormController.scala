@@ -1,6 +1,7 @@
 package controllers
 
 import Models.Account
+import Models.JSON.{Measurements, Price}
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc.Controller
@@ -25,9 +26,17 @@ case class Registration(
                        )
 
 case class Login(
-                email: String,
-                password: String
-                )
+                  email: String,
+                  password: String
+                  )
+
+case class Item(
+                 User: String,
+                 File: String,
+                 Quantity: Int,
+                 Size: Measurements,
+                 Price: Price
+               )
 
 trait FormController extends Controller {
 
@@ -57,6 +66,33 @@ trait FormController extends Controller {
       "password" -> nonEmptyText,
       "name" -> nonEmptyText
     )(Registration.apply)(Registration.unapply)
+  }
+
+  val sizeForm = Form {
+    mapping(
+      "widthIn" -> number,
+      "widthFt" -> number,
+      "heighIn" -> number,
+      "heightFt" -> number
+    )(Measurements.apply)(Measurements.unapply)
+  }
+
+  val priceForm = Form {
+    mapping(
+      "Key" -> number,
+      "DoubleSided" -> boolean,
+      "Quantity" -> number
+    )(Price.apply)(Price.unapply)
+  }
+
+  val itemForm = Form {
+    mapping(
+      "User" -> text,
+      "File" -> text,
+      "Quantity" -> number,
+      "Size" -> sizeForm.mapping,
+      "Price" -> priceForm.mapping
+    )(Item.apply)(Item.unapply)
   }
 }
 

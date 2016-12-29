@@ -2,7 +2,7 @@ package controllers
 
 import java.io.File
 
-import Models.{Item, Pricing, Role}
+import Models.{Pricing, Role}
 import Models.Role._
 import jp.t2v.lab.play2.auth._
 import play.api.mvc.{Action, Controller}
@@ -95,10 +95,19 @@ class Messages extends Controller with FormController with LoginLogout with Auth
   }
 
   def pricing(PricingRequest: String) = Action { implicit request =>
-    val lol: Item = Json.parse(PricingRequest).validate[Item].get
+    val lol: Pricing = Json.parse(PricingRequest).validate[Pricing].get
     var priced = Pricing.priced(lol)
     println(Pricing.priced(lol))
     Ok(priced)
+  }
+
+  def product(ProductDisplay: String) = Action { implicit request =>
+    ProductDisplay match {
+      case "banners" => Ok(views.html.product("banners", itemForm))
+      case "businesscards" => Ok(views.html.product("businesscards", itemForm))
+      case "coroplast" => Ok(views.html.product("coroplast", itemForm))
+      case _ => Ok("")
+    }
   }
 
   def submit = StackAction(AuthorityKey -> NormalUser) { implicit request =>
